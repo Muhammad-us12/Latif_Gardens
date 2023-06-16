@@ -25,11 +25,23 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        // $request->authenticate();
+        if (Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            $request->session()->regenerate();
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+        return redirect()->back()->with(['error'=>'Your Credentional Does not matched']);
+    }
 
-        $request->session()->regenerate();
+    public function agent_Login(LoginRequest $request): RedirectResponse
+    {
+        // $request->authenticate();
+        if (Auth::guard('agent')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            $request->session()->regenerate();
+            return redirect('agent_dashboard')->with('login Successfully');
+        }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+         return redirect()->back()->with(['error'=>'Your Credentional Does not matched']);
     }
 
     /**
