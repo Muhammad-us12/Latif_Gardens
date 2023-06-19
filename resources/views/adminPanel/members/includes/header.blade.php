@@ -83,13 +83,47 @@
                         </li>
 
                         <li class="side-nav-item">
-                            <a  href="{{ URL::to('dashboard') }}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                            <a  href="{{ URL::to('daily_dairy') }}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
                                 <i class="uil-home-alt"></i>
                                 <span class="badge bg-success float-end">4</span>
-                                <span> Dashboards </span>
+                                <span> Daily Dairy </span>
+                            </a>
+                        </li>
+                        
+                        <li class="side-nav-item">
+                            <a  href="{{ URL::to('client_registration') }}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Client Registration </span>
                             </a>
                             
                         </li>
+
+                        <li class="side-nav-item">
+                            <a  href="{{ URL::to('clients_list') }}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Client List </span>
+                            </a>
+                            
+                        </li>
+                        <li class="side-nav-item">
+                            <a  href="{{ URL::to('follow_up_categories') }}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Folow Up Categories </span>
+                            </a>
+                            
+                        </li>
+                        <li class="side-nav-item">
+                            <a  href="{{ URL::to('follow_up_sub_categories') }}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Folow Up Sub Cat </span>
+                            </a>
+                        </li>
+
+                        
 
                        
 

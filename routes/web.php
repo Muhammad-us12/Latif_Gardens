@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\members\AgentController;
+use App\Http\Controllers\Clients\ClientController;
+use App\Http\Controllers\Clients\FollowUpCatController;
+
 
 
 /*
@@ -29,6 +32,29 @@ Route::get('/dashboard',[AccountsController::class,'dashboard'])
 
 Route::get('/agent_dashboard',[AgentController::class,'dashboard'])
 ->middleware('auth:agent')->name('agent_dashboard');
+
+Route::middleware('auth:agent')->group(function(){
+    
+    Route::get('daily_dairy',[ClientController::class,'daily_dairy']);
+    Route::get('client_follow_up/{id}/{client_id}',[ClientController::class,'client_follow_up']);
+    Route::post('client_follow_up_sub',[ClientController::class,'client_follow_up_sub']);
+
+    Route::get('clients_list',[ClientController::class,'clients_list']);
+    Route::post('udpate_cleint_status',[ClientController::class,'udpate_cleint_status']);
+    
+    Route::get('clients_follow_up_list/{id}',[ClientController::class,'clients_follow_up_list']);
+    Route::get('client_registration',[ClientController::class,'create']);
+    Route::post('client_registration',[ClientController::class,'store']);
+
+    Route::get('follow_up_categories',[FollowUpCatController::class,'follow_up_categories']);
+    Route::post('follow_up_cat_submit',[FollowUpCatController::class,'follow_up_cat_submit']);
+    Route::post('follow_up_cat_update',[FollowUpCatController::class,'follow_up_cat_update']);
+
+    Route::get('follow_up_sub_categories',[FollowUpCatController::class,'follow_up_sub_categories']);
+    Route::post('follow_up_sub_cat_submit',[FollowUpCatController::class,'follow_up_sub_cat_submit']);
+    Route::post('follow_up_sub_cat_update',[FollowUpCatController::class,'follow_up_sub_cat_update']);
+    
+});
 
 
 Route::middleware('auth:web')->group(function () {
