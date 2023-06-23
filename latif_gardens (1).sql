@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2023 at 06:13 AM
+-- Generation Time: Jun 23, 2023 at 09:13 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -58,6 +58,106 @@ INSERT INTO `agents` (`id`, `fname`, `lname`, `opening_bal`, `balance`, `email`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cash_accountledgers`
+--
+
+CREATE TABLE `cash_accountledgers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `payment` varchar(50) DEFAULT NULL,
+  `received` varchar(50) DEFAULT NULL,
+  `balance` varchar(50) NOT NULL,
+  `deposit_id` int(11) DEFAULT NULL,
+  `payment_id` int(11) DEFAULT NULL,
+  `recevied_id` int(11) DEFAULT NULL,
+  `file_id` int(11) DEFAULT NULL,
+  `property_id` int(11) DEFAULT NULL,
+  `expense_id` int(11) DEFAULT NULL,
+  `account_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `insevter_name` varchar(300) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cash_accountledgers`
+--
+
+INSERT INTO `cash_accountledgers` (`id`, `payment`, `received`, `balance`, `deposit_id`, `payment_id`, `recevied_id`, `file_id`, `property_id`, `expense_id`, `account_id`, `user_id`, `insevter_name`, `created_at`, `updated_at`) VALUES
+(1, NULL, '500', '5500', 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 'Test', '2023-06-23 07:12:22', '2023-06-23 07:12:22'),
+(2, '3000', NULL, '2500', NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, '2023-06-23 07:13:10', '2023-06-23 07:13:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cash_accounts`
+--
+
+CREATE TABLE `cash_accounts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `account_name` varchar(255) NOT NULL,
+  `account_number` varchar(255) NOT NULL,
+  `opening_bal` double(12,2) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cash_accounts`
+--
+
+INSERT INTO `cash_accounts` (`id`, `account_name`, `account_number`, `opening_bal`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Cash in Hand', '348342342343', 5000.00, 1, '2023-06-23 07:09:10', '2023-06-23 07:09:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cash_accounts_bals`
+--
+
+CREATE TABLE `cash_accounts_bals` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `balance` double(12,2) NOT NULL,
+  `account_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cash_accounts_bals`
+--
+
+INSERT INTO `cash_accounts_bals` (`id`, `balance`, `account_id`, `created_at`, `updated_at`) VALUES
+(1, 2500.00, 1, '2023-06-23 07:09:10', '2023-06-23 07:13:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cash_account_deposits`
+--
+
+CREATE TABLE `cash_account_deposits` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `deposit_amount` double(12,2) NOT NULL,
+  `deposit_by` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `account_id` bigint(20) UNSIGNED NOT NULL,
+  `insevter_name` varchar(300) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cash_account_deposits`
+--
+
+INSERT INTO `cash_account_deposits` (`id`, `deposit_amount`, `deposit_by`, `user_id`, `account_id`, `insevter_name`, `created_at`, `updated_at`) VALUES
+(1, 500.00, 'Test Person', 1, 1, 'Test', '2023-06-23 07:12:22', '2023-06-23 07:12:22');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `clients`
 --
 
@@ -74,19 +174,27 @@ CREATE TABLE `clients` (
   `assign_to` int(11) DEFAULT NULL,
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `dealer_name` varchar(255) DEFAULT NULL,
+  `client_profession` varchar(255) DEFAULT NULL,
+  `client_address` varchar(255) DEFAULT NULL,
+  `other_phone` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`id`, `first_name`, `last_name`, `phone`, `client_type`, `country`, `city`, `client_resource`, `status`, `assign_to`, `created_by`, `created_at`, `updated_at`) VALUES
-(15, 'Muhammad', 'Usama', '+9230203499393', 'Dealer', 'PAKISTAN', 'test', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:02:29', '2023-06-17 05:02:29'),
-(16, 'Muhammad', 'Hassan', '+9230203499', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:04:27', '2023-06-17 05:04:27'),
-(17, 'Muhammad', 'Hassan', '+9230203499', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:04:58', '2023-06-17 05:04:58'),
-(18, 'Muhammad', 'Farhan', '+9242346456455', 'Dealer', 'PAKISTAN', 'Sarhgodah', 'UAN', 'Lost', 1, 1, '2023-06-17 19:47:20', '2023-06-19 04:12:37'),
-(19, 'Muhammad', 'Majid', '+92303034934', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Others', 'In Progress', 1, 1, '2023-06-18 11:08:45', '2023-06-19 02:01:48');
+INSERT INTO `clients` (`id`, `first_name`, `last_name`, `phone`, `client_type`, `country`, `city`, `client_resource`, `status`, `assign_to`, `created_by`, `created_at`, `updated_at`, `dealer_name`, `client_profession`, `client_address`, `other_phone`, `email`) VALUES
+(15, 'Muhammad', 'Usama', '+9230203499393', 'Dealer', 'PAKISTAN', 'test', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:02:29', '2023-06-17 05:02:29', NULL, NULL, NULL, NULL, NULL),
+(16, 'Muhammad', 'Hassan', '+9230203499', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:04:27', '2023-06-17 05:04:27', NULL, NULL, NULL, NULL, NULL),
+(17, 'Muhammad', 'Hassan', '+9230203499', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:04:58', '2023-06-17 05:04:58', NULL, NULL, NULL, NULL, NULL),
+(18, 'Muhammad', 'Farhan', '+9242346456455', 'Dealer', 'PAKISTAN', 'Sarhgodah', 'UAN', 'Lost', 1, 1, '2023-06-17 19:47:20', '2023-06-19 04:12:37', NULL, NULL, NULL, NULL, NULL),
+(19, 'Muhammad', 'Majid', '+92303034934', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Others', 'In Progress', 1, 1, '2023-06-18 11:08:45', '2023-06-19 02:01:48', NULL, NULL, NULL, NULL, NULL),
+(20, 'Muhammad', 'Ali', '+9230203499393', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Walk-In', 'Open', 2, 2, '2023-06-22 06:13:45', '2023-06-22 06:13:45', NULL, NULL, NULL, NULL, NULL),
+(21, 'Muhammad', 'Attaullah', '+9230203499393', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-23 06:18:52', '2023-06-23 06:18:52', 'Dealer Name', 'Web Deveploer', 'Muhammad', '+9230203499393', 'usama.asghar7868@gmail.com'),
+(22, 'New', 'Client', '+9242346456455', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Live Chat', 'Open', 1, 1, '2023-06-23 06:24:13', '2023-06-23 06:24:13', 'TEst Dealer', 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar7868@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -401,7 +509,78 @@ INSERT INTO `curren_follow_ups` (`id`, `client_id`, `follow_up_time`, `status`, 
 (4, 18, '2023-06-18 01:47:20', 'true', NULL, '2023-06-19 02:06:50'),
 (5, 19, '2023-06-18 17:08:45', 'true', NULL, '2023-06-19 02:01:48'),
 (6, 19, '2023-06-19 07:06:00', 'true', NULL, '2023-06-19 02:08:07'),
-(7, 19, '2023-06-19 13:08:00', 'false', NULL, NULL);
+(7, 19, '2023-06-19 13:08:00', 'false', NULL, NULL),
+(8, 20, '2023-06-22 12:13:46', 'false', NULL, NULL),
+(9, 21, '2023-06-23 12:18:52', 'false', NULL, NULL),
+(10, 22, '2023-06-23 12:24:13', 'false', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expenses`
+--
+
+CREATE TABLE `expenses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `exp_name` varchar(255) NOT NULL,
+  `total_amount` varchar(30) NOT NULL,
+  `date` date NOT NULL,
+  `account_id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `sub_category_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `exp_name`, `total_amount`, `date`, `account_id`, `category_id`, `sub_category_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'expe', '3000', '2023-06-23', 1, 1, 1, 1, '2023-06-23 07:13:10', '2023-06-23 07:13:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expense_categories`
+--
+
+CREATE TABLE `expense_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `exp_category_name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `expense_categories`
+--
+
+INSERT INTO `expense_categories` (`id`, `exp_category_name`, `created_at`, `updated_at`) VALUES
+(1, 'cat1', '2023-06-23 07:12:38', '2023-06-23 07:12:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expense_sub_categories`
+--
+
+CREATE TABLE `expense_sub_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `exp_sub_category` varchar(255) NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `expense_sub_categories`
+--
+
+INSERT INTO `expense_sub_categories` (`id`, `exp_sub_category`, `category_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'subcat1', 1, 1, '2023-06-23 07:12:50', '2023-06-23 07:12:50');
 
 -- --------------------------------------------------------
 
@@ -511,7 +690,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2023_06_16_224326_create_curren_follow_ups_table', 4),
 (10, '2023_06_18_124909_create_follow_up_categories_table', 5),
 (11, '2023_06_18_124933_create_follow_up_sub_categories_table', 5),
-(12, '2023_06_18_190329_create_clients_follow_ups_table', 6);
+(12, '2023_06_18_190329_create_clients_follow_ups_table', 6),
+(14, '2023_06_23_103545_add_column_to_clients_table', 7);
 
 -- --------------------------------------------------------
 
@@ -580,6 +760,34 @@ ALTER TABLE `agents`
   ADD UNIQUE KEY `agents_email_unique` (`email`);
 
 --
+-- Indexes for table `cash_accountledgers`
+--
+ALTER TABLE `cash_accountledgers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cash_accountledgers_account_id_foreign` (`account_id`);
+
+--
+-- Indexes for table `cash_accounts`
+--
+ALTER TABLE `cash_accounts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cash_accounts_account_name_unique` (`account_name`);
+
+--
+-- Indexes for table `cash_accounts_bals`
+--
+ALTER TABLE `cash_accounts_bals`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cash_accounts_bals_account_id_foreign` (`account_id`);
+
+--
+-- Indexes for table `cash_account_deposits`
+--
+ALTER TABLE `cash_account_deposits`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cash_account_deposits_account_id_foreign` (`account_id`);
+
+--
 -- Indexes for table `clients`
 --
 ALTER TABLE `clients`
@@ -602,6 +810,28 @@ ALTER TABLE `country`
 --
 ALTER TABLE `curren_follow_ups`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `expenses_account_id_foreign` (`account_id`),
+  ADD KEY `expenses_category_id_foreign` (`category_id`),
+  ADD KEY `expenses_sub_category_id_foreign` (`sub_category_id`);
+
+--
+-- Indexes for table `expense_categories`
+--
+ALTER TABLE `expense_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expense_sub_categories`
+--
+ALTER TABLE `expense_sub_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `expense_sub_categories_category_id_foreign` (`category_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -667,10 +897,34 @@ ALTER TABLE `agents`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `cash_accountledgers`
+--
+ALTER TABLE `cash_accountledgers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `cash_accounts`
+--
+ALTER TABLE `cash_accounts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `cash_accounts_bals`
+--
+ALTER TABLE `cash_accounts_bals`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `cash_account_deposits`
+--
+ALTER TABLE `cash_account_deposits`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `clients_follow_ups`
@@ -688,7 +942,25 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT for table `curren_follow_ups`
 --
 ALTER TABLE `curren_follow_ups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `expenses`
+--
+ALTER TABLE `expenses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `expense_categories`
+--
+ALTER TABLE `expense_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `expense_sub_categories`
+--
+ALTER TABLE `expense_sub_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -718,7 +990,7 @@ ALTER TABLE `lead_users`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -731,6 +1003,36 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `cash_accountledgers`
+--
+ALTER TABLE `cash_accountledgers`
+  ADD CONSTRAINT `cash_accountledgers_account_id_foreign` FOREIGN KEY (`account_id`) REFERENCES `cash_accounts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `cash_accounts_bals`
+--
+ALTER TABLE `cash_accounts_bals`
+  ADD CONSTRAINT `cash_accounts_bals_account_id_foreign` FOREIGN KEY (`account_id`) REFERENCES `cash_accounts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD CONSTRAINT `expenses_account_id_foreign` FOREIGN KEY (`account_id`) REFERENCES `cash_accounts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `expenses_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `expense_categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `expenses_sub_category_id_foreign` FOREIGN KEY (`sub_category_id`) REFERENCES `expense_sub_categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `expense_sub_categories`
+--
+ALTER TABLE `expense_sub_categories`
+  ADD CONSTRAINT `expense_sub_categories_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `expense_categories` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

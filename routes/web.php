@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\members\AgentController;
 use App\Http\Controllers\Clients\ClientController;
 use App\Http\Controllers\Clients\FollowUpCatController;
+
+use App\Http\Controllers\Accounts\AccountsController;
+use App\Http\Controllers\Accounts\PaymentsController;
+use App\Http\Controllers\Accounts\ReceivedController;
+use App\Http\Controllers\Accounts\ExpenseController;
 
 
 
@@ -73,6 +77,34 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/fetch_agent_bal/{id}', [AgentController::class,'fetch_agent_bal']);
     Route::get('/agent-ledeger/{id}', [AgentController::class,'AgentLedeger']);
     Route::post('/update_agent_status', [AgentController::class,'update_agent_status']);
+
+    // Cash Accounts
+    Route::get('/cash-deposit', [AccountsController::class,'cashDeposit']);
+    Route::post('/cash-deposit', [AccountsController::class,'cashDepositSub']);
+    Route::get('/cash_deposit_print/{id}', [AccountsController::class,'cash_deposit_print']);
+    Route::get('/accounts-list', [AccountsController::class,'index']);
+    Route::post('/account-submit', [AccountsController::class,'store']);
+    Route::get('/accounts-ledeger/{id}', [AccountsController::class,'accountLedeger']);
+    Route::get('/fetch_cash_acc_bal/{id}', [AccountsController::class,'fetch_cash_acc_bal']);
+    Route::get('/fetch_account_list', [AccountsController::class,'fetch_account_list']);
+    Route::get('/payable_receivable', [AccountsController::class,'payable_receivable']);
+    Route::get('/profit-report', [AccountsController::class,'profit_report']);
+    Route::get('/date-wise-profit-report', [AccountsController::class,'date_wise_profit_report']);
+    Route::post('/date-wise-profit-report', [AccountsController::class,'date_wise_profit_report_sub']);
+
+    // Expense 
+    Route::get('/add-expense', [ExpenseController::class,'create']);
+    Route::get('/expense-list', [ExpenseController::class,'index']);
+    Route::post('/expense-sub', [ExpenseController::class,'store']);
+    Route::get('/expense-categories', [ExpenseController::class,'expense_categories']);
+    Route::post('/expense-cat-submit', [ExpenseController::class,'storeCategory']);
+    Route::get('/expense-sub-categories', [ExpenseController::class,'expense_sub_categories']);
+    Route::post('/expense-sub-cat-submit', [ExpenseController::class,'expense_sub_cat_submit']);
+    Route::post('/fetch_sub_category', [ExpenseController::class,'fetch_sub_category']);
+    Route::get('/expense_print/{id}', [ExpenseController::class,'expense_print']);
+    Route::post('/expense-cat-update', [ExpenseController::class,'update']);
+    Route::post('/expense-sub-cat-update', [ExpenseController::class,'sub_cat_update']);
+
 });
 
 require __DIR__.'/auth.php';

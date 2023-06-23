@@ -122,7 +122,45 @@
                             </div>
                         </li>
 
-                        
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#accountNav" aria-expanded="false" aria-controls="accountNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Accounts </span>
+                            </a>
+                            <div class="collapse" id="accountNav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('accounts-list') }}">Accounts List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('cash-deposit') }}">Cash Deposit</a>
+                                    </li>  
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#expenseNav" aria-expanded="false" aria-controls="expenseNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Expense </span>
+                            </a>
+                            <div class="collapse" id="expenseNav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('expense-list') }}">Expense List</a>
+                                    </li>
+                                   
+                                    <li>
+                                        <a href="{{ URL::to('expense-categories') }}">Categories</a>
+                                    </li>  
+                                    <li>
+                                        <a href="{{ URL::to('expense-sub-categories') }}">Sub Categories</a>
+                                    </li>  
+                                </ul>
+                            </div>
+                        </li>
 
                         
                        

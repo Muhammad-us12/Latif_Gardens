@@ -70,14 +70,55 @@
                                                     @enderror
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label for="example-input-normal" class="form-label">Other Contact No.</label>
+                                                    <input type="text" id="example-input-normal" name="other_phone" value="{{ old('other_phone') }}" class="form-control" placeholder="Contact No.">
+                                                    @error('other_phone')
+                                                                <p class="text-danger mt-2">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label for="example-input-normal" class="form-label">E mail</label>
+                                                    <input type="text" id="example-input-normal" name="email" value="{{ old('email') }}" class="form-control" placeholder="E mail">
+                                                    @error('email')
+                                                                <p class="text-danger mt-2">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label for="example-input-normal" class="form-label">Profession</label>
+                                                    <input type="text" id="example-input-normal" name="client_profession" value="{{ old('client_profession') }}" class="form-control" placeholder="Enter Profession">
+                                                    @error('client_profession')
+                                                                <p class="text-danger mt-2">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                             
                                           
                                             <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="example-input-normal" class="form-label">Client Type</label>
                                                     <select class="form-control select2" name="client_type" data-toggle="select2">
-                                                          <option value="Dealer">Dealer</option>
+                                                        <option value="Dealer">Dealer</option>
+                                                        <option value="Walk In">Walk In</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label for="example-input-normal" class="form-label">Dealer Name</label>
+                                                    <input type="text" id="example-input-normal" name="dealer_name" value="{{ old('dealer_name') }}" class="form-control" placeholder="Enter Dealer Name">
+                                                    @error('dealer_name')
+                                                                <p class="text-danger mt-2">{{ $message }}</p>
+                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -95,7 +136,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="example-input-normal" class="form-label">Select Country</label>
                                                     <select class="form-control select2" name="country" data-toggle="select2">
@@ -107,11 +148,21 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="mb-3">
                                                     <label for="example-input-normal" class="form-label">Select City</label>
-                                                    <input type="text" id="example-input-normal" name="city" value="{{ old('fname') }}" class="form-control" placeholder="Enter City">
+                                                    <input type="text" id="example-input-normal" name="city" value="{{ old('city') }}" class="form-control" placeholder="Enter City">
                                                     @error('city')
+                                                                <p class="text-danger mt-2">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="mb-3">
+                                                    <label for="example-input-normal" class="form-label">Address</label>
+                                                    <input type="text" id="example-input-normal" name="client_address" value="{{ old('client_address') }}" class="form-control" placeholder="Enter client_address">
+                                                    @error('client_address')
                                                                 <p class="text-danger mt-2">{{ $message }}</p>
                                                     @enderror
                                                 </div>

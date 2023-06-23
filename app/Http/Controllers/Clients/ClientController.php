@@ -101,13 +101,14 @@ class ClientController extends Controller
         $today = Date('Y-m-d');
         $currentDateTime = Carbon::now();
         // Today Tasks
-        $lastFollowUpQuery = DB::table('clients_follow_ups')
-                                ->select('client_id', DB::raw('MAX(id) as max_id'),'next_follow_up_time','sub_category_id','follow_up_message')
-                                ->groupBy('client_id');
+        // $lastFollowUpQuery = DB::table('clients_follow_ups')
+        //                         ->select('client_id', DB::raw('MAX(id) as max_id'),'next_follow_up_time','sub_category_id','follow_up_message')
+        //                         ->groupBy('client_id');
         // dd($lastFollowUpQuery);
 
         $today_follow_ups = CurrenFollowUp::join('clients','clients.id','curren_follow_ups.client_id')
                                 ->whereDate('curren_follow_ups.follow_up_time', '=', $today)
+                                ->where('clients.assign_to',Auth::user()->id)
                                 ->select('clients.*','clients.id as client_id','curren_follow_ups.*')
                                 ->get();
 
@@ -127,6 +128,7 @@ class ClientController extends Controller
                                 ->where('curren_follow_ups.status','false')
                                 ->where('clients.status','!=','Mature')
                                 ->where('clients.status','!=','Lost')
+                                ->where('clients.assign_to',Auth::user()->id)
                                 ->select('clients.*','clients.id as client_id','curren_follow_ups.*')
                                 ->get();
 
@@ -162,6 +164,11 @@ class ClientController extends Controller
                    $Cleint_Obj->city =  $request->city;
                    $Cleint_Obj->country =  $request->country;
                    $Cleint_Obj->phone =  $request->phone;
+                   $Cleint_Obj->dealer_name =  $request->dealer_name;
+                   $Cleint_Obj->client_profession =  $request->client_profession;
+                   $Cleint_Obj->client_address =  $request->client_address;
+                   $Cleint_Obj->other_phone =  $request->other_phone;
+                   $Cleint_Obj->email =  $request->email;
                    $Cleint_Obj->client_type =  $request->client_type;
                    $Cleint_Obj->client_resource =  $request->client_resource;
                    $Cleint_Obj->assign_to =  Auth::user()->id;
