@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Agent extends Authenticatable
 {
     use HasFactory;
-    protected $fillable = ['fname','balance','lname','email','password','picture','country','city','phone','address','status','display_on_web'];
+    protected $fillable = ['fname','balance','lname','email','password','picture','country','city','phone','address','status','display_on_web','client_assigns'];
 
     
 }

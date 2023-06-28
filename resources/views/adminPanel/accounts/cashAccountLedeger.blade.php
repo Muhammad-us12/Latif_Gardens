@@ -84,7 +84,6 @@
                                                         <th>Deposit Id</th>
                                                         <th>Payment Id</th>
                                                         <th>Received Id</th>
-                                                        <th>File Id</th>
                                                         <th>Property Id</th>
                                                         <th>Expense Id</th>
                                                     </tr>
@@ -100,7 +99,6 @@
                                                                 <td>{{ $cash_res->deposit_id }}</td>
                                                                 <td>{{ $cash_res->payment_id }}</td>
                                                                 <td>{{ $cash_res->recevied_id }}</td>
-                                                                <td>{{ $cash_res->file_id }}</td>
                                                                 <td>{{ $cash_res->property_id }}</td>
                                                                 <td>{{ $cash_res->expense_id }}</td>
                                                             </tr>

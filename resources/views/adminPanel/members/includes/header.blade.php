@@ -107,7 +107,7 @@
                             </a>
                             
                         </li>
-                        <li class="side-nav-item">
+                        <!-- <li class="side-nav-item">
                             <a  href="{{ URL::to('follow_up_categories') }}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
                                 <i class="uil-home-alt"></i>
                                 <span class="badge bg-success float-end">4</span>
@@ -121,7 +121,7 @@
                                 <span class="badge bg-success float-end">4</span>
                                 <span> Folow Up Sub Cat </span>
                             </a>
-                        </li>
+                        </li> -->
 
                         
 

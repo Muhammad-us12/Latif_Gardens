@@ -50,13 +50,6 @@ Route::middleware('auth:agent')->group(function(){
     Route::get('client_registration',[ClientController::class,'create']);
     Route::post('client_registration',[ClientController::class,'store']);
 
-    Route::get('follow_up_categories',[FollowUpCatController::class,'follow_up_categories']);
-    Route::post('follow_up_cat_submit',[FollowUpCatController::class,'follow_up_cat_submit']);
-    Route::post('follow_up_cat_update',[FollowUpCatController::class,'follow_up_cat_update']);
-
-    Route::get('follow_up_sub_categories',[FollowUpCatController::class,'follow_up_sub_categories']);
-    Route::post('follow_up_sub_cat_submit',[FollowUpCatController::class,'follow_up_sub_cat_submit']);
-    Route::post('follow_up_sub_cat_update',[FollowUpCatController::class,'follow_up_sub_cat_update']);
     
 });
 
@@ -66,6 +59,27 @@ Route::middleware('auth:web')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    
+    
+    Route::get('add_client_admin',[ClientController::class,'add_client_admin']);
+    Route::post('client_registration_admin',[ClientController::class,'store_admin']);
+    Route::get('all_clients_list',[ClientController::class,'all_clients_list']);
+    Route::get('unassign_clients_list',[ClientController::class,'unassign_clients_list']);
+    Route::get('assign_clients_to_agents',[ClientController::class,'assign_clients_to_agents']);
+    
+
+    Route::get('clients_follow_up_list_admin/{id}',[ClientController::class,'clients_follow_up_list_admin']);
+    Route::post('udpate_cleint_status_admin',[ClientController::class,'udpate_cleint_status']);
+
+    Route::get('follow_up_categories',[FollowUpCatController::class,'follow_up_categories']);
+    Route::post('follow_up_cat_submit',[FollowUpCatController::class,'follow_up_cat_submit']);
+    Route::post('follow_up_cat_update',[FollowUpCatController::class,'follow_up_cat_update']);
+
+    Route::get('follow_up_sub_categories',[FollowUpCatController::class,'follow_up_sub_categories']);
+    Route::post('follow_up_sub_cat_submit',[FollowUpCatController::class,'follow_up_sub_cat_submit']);
+    Route::post('follow_up_sub_cat_update',[FollowUpCatController::class,'follow_up_sub_cat_update']);
+    
+    
     // Agents
     Route::get('/add-agent', [AgentController::class,'create']);
     Route::get('/agents-list', [AgentController::class,'index']);

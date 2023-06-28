@@ -162,9 +162,40 @@
                             </div>
                         </li>
 
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#clients_nav" aria-expanded="false" aria-controls="clients_nav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Clients</span>
+                            </a>
+                            <div class="collapse" id="clients_nav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('all_clients_list') }}">Clients List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('unassign_clients_list') }}">Unassign Clients</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('add_client_admin') }}">Add Clients</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('follow_up_categories') }}">Folow Up Categories</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('follow_up_sub_categories') }}">Folow Up Sub Cat</a>
+                                    </li>
+                                   
+                                     
+                                </ul>
+                            </div>
+                        </li>
+
                         
                        
                     </ul>
+
+                   
 
                     <!-- Help Box -->
                     

@@ -9,6 +9,8 @@ use App\Models\Clients\CurrenFollowUp;
 use App\Models\Clients\FollowUpCategory;
 use App\Models\Clients\FollowUpSubCategory;
 use App\Models\Clients\ClientsFollowUp;
+use App\Models\persons\Agent;
+
 use Carbon\Carbon;
 use Auth;
 use DB;
@@ -90,12 +92,22 @@ class ClientController extends Controller
     }
 
     public function udpate_cleint_status(Request $req){
+        $update_by = 'agent';
+        if(isset($req->update_by)){
+            $update_by = 'Admin';
+        }
+
         Client::find($req->client_id)->update([
-            'status'=>$req->client_status
+            'status'=>$req->client_status,
+            'updated_by' =>$update_by,
+            'update_by_id' => Auth::user()->id,
         ]);
 
-        return redirect('/clients_list')->with(['success'=>'Client is Added Successfully']);
-
+        if(!isset($req->update_by)){
+            return redirect('/clients_list')->with(['success'=>'Client is Added Successfully']);
+        }else{
+            return redirect('/all_clients_list')->with(['success'=>'Client is Added Successfully']);
+        }
     }
     public function daily_dairy(){
         $today = Date('Y-m-d');
@@ -147,6 +159,68 @@ class ClientController extends Controller
         // dd($clients_list);
         return view('adminPanel.members.Clients.clients_list',compact('clients_list'));
     }
+
+    public function all_clients_list(){
+        $clients_list = Client::orderBy('id','desc')->paginate(10);
+
+        $open_counts = Client::where('status','Open')->count();
+        $in_progress_counts = Client::where('status','In Progress')->count();
+        $mature_counts = Client::where('status','Mature')->count();
+        $lost_counts = Client::where('status','Lost')->count();
+
+        return view('adminPanel.Clients.clients_list',compact('clients_list',
+        'open_counts','in_progress_counts','mature_counts','lost_counts'));
+    }
+
+    public function unassign_clients_list(){
+        $clients_list = Client::orderBy('id','desc')->where('assign_to',NULL)->paginate(10);
+        return view('adminPanel.Clients.unassign_clients_list',compact('clients_list'));
+    }
+
+    public function assign_clients_to_agents(){
+        try {
+            DB::transaction(function(){
+
+
+                $clients_list = Client::orderBy('id','desc')->where('assign_to',NULL)->get();
+
+                foreach($clients_list as $index => $client_res){
+                    $unassigned_agent = Agent::where('client_assigns',0)->first();
+
+                    if(!$unassigned_agent){
+                        Agent::query()->update(['client_assigns' => 0]);
+                        $unassigned_agent = Agent::where('client_assigns',0)->first();
+                    }
+
+                    if(isset($unassigned_agent)){
+
+                        Client::find($client_res->id)->update([
+                            'assign_to' => $unassigned_agent->id
+                        ]);
+
+                        Agent::find($unassigned_agent->id)
+                                ->update(['client_assigns'=> 1]);
+                    }
+                }
+         });
+            return redirect('/all_clients_list')->with(['success'=>'Client is Assigned Successfully']);
+
+        } catch (\PDOException $e) {
+            // Woopsy
+
+            DB::rollBack();
+            // echo $e;
+            return redirect()->back()->with(['error'=>'Something Went Wrong Try Again']);
+        }
+    }
+
+
+    public function clients_follow_up_list_admin($id){
+        $client_data = Client::find($id);
+        $client_follow_up = ClientsFollowUp::where('client_id',$id)->orderBy('id','desc')->get();
+        return view('adminPanel.Clients.client_follow_up_details',compact('client_data','client_follow_up'));
+    }
+    
 
     public function store(Request $request){
         $validated = $request->validate([
@@ -203,4 +277,51 @@ class ClientController extends Controller
         }
 
     }
+
+    public function add_client_admin(){
+        $countriesList = DB::table('country')->get();
+        return view('adminPanel.Clients.client_registration',compact('countriesList'));
+    }
+
+    public function store_admin(Request $request){
+        $validated = $request->validate([
+            'fname' => 'required|max:50',
+            'lname' => 'required|max:50',
+            'city' => 'required',
+            'phone' => 'required',
+        ]);
+
+        try {
+            DB::transaction(function() use($request){
+                   $Cleint_Obj = new Client;
+                   $Cleint_Obj->first_name =  $request->fname;
+                   $Cleint_Obj->last_name =  $request->lname;
+                   $Cleint_Obj->city =  $request->city;
+                   $Cleint_Obj->country =  $request->country;
+                   $Cleint_Obj->phone =  $request->phone;
+                   $Cleint_Obj->dealer_name =  $request->dealer_name;
+                   $Cleint_Obj->client_profession =  $request->client_profession;
+                   $Cleint_Obj->client_address =  $request->client_address;
+                   $Cleint_Obj->other_phone =  $request->other_phone;
+                   $Cleint_Obj->email =  $request->email;
+                   $Cleint_Obj->client_type =  $request->client_type;
+                   $Cleint_Obj->client_resource =  $request->client_resource;
+                   $Cleint_Obj->created_by =  Auth::user()->id;
+
+                   $result = $Cleint_Obj->save();
+
+            });
+            return redirect('/all_clients_list')->with(['success'=>'Client is Added Successfully']);
+
+        } catch (\PDOException $e) {
+            // Woopsy
+
+            DB::rollBack();
+            // echo $e;
+            return redirect()->back()->with(['error'=>'Something Went Wrong Try Again']);
+        }
+
+    }
+    
+    
 }

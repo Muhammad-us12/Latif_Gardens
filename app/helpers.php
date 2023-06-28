@@ -29,6 +29,11 @@ class Helper {
         return $category;
     }
 
+    public static function getUserName($id=0){
+        $user = User::find($id);
+
+        return $user->name ?? '';
+    }
     
 
     public static function getAgentName($id=0){

@@ -1,5 +1,5 @@
 
-@extends('adminPanel/members/master')   
+@extends('adminPanel/master')   
          @section('style')
             <link href="{{ asset('public/adminPanel/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
          @endsection

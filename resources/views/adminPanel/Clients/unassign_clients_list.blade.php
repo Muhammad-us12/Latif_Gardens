@@ -4,7 +4,7 @@
     use Carbon\Carbon;
 ?>
 
-@extends('adminPanel/members/master')   
+@extends('adminPanel/master')   
          @section('style')
             <link href="{{ asset('public/adminPanel/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
          @endsection
@@ -66,11 +66,11 @@
                                     <div class="card-body">
                                         <div class="row mb-2">
                                             <div class="col-sm-5">
-                                                Clients List
+                                                Unassign Clients List
                                             </div>
                                             <div class="col-sm-7">
                                                 <div class="text-sm-end">
-                                                    <a href="{{ URL::to('/client_registration') }}" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> Add New Client</a>
+                                                    <a href="{{ URL::to('/assign_clients_to_agents') }}" class="btn btn-success mb-2"><i class="mdi mdi-plus-circle me-2"></i> Assign Client</a>
                                                 </div>
                                             </div><!-- end col-->
                                         </div>
@@ -83,6 +83,7 @@
                                                         <th>Name</th>
                                                         <th>Phone</th>
                                                         <th>Status</th>
+                                                        <th>Assign To</th>
                                                         <th>Follow Up</th>
                                                         <th>Follow Times</th>
                                                         <th>Country</th>
@@ -96,7 +97,6 @@
                                                         @foreach($clients_list as $client_res)
                                                         <?php 
                                                             $follow_up_data = Helper::get_Client_follow_up($client_res->id);
-                                                            
                                                         ?>
                                                     <tr>
                                                         <td>
@@ -105,6 +105,7 @@
                                                        
                                                         <td>
                                                         {{ $client_res->first_name." ".$client_res->last_name }}
+                                                        
                                                         </td>
                                                         <td>
                                                             {{ $client_res->phone }}
@@ -130,6 +131,9 @@
                                                                 >{{ $client_res->status  }}
                                                                 </span>
 
+                                                        </td>
+                                                        <td>
+                                                            {{ $client_res->assignTo->fname ?? '' }} {{ $client_res->assignTo->lname ?? '' }}
                                                         </td>
                                                         <td>
                                                             <?php 
@@ -166,7 +170,7 @@
 
                                                         <td class="table-action">
                                                         
-                                                            <a href="{{ URL::to('clients_follow_up_list/'.$client_res->id.'') }}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                                            <a href="{{ URL::to('clients_follow_up_list_admin/'.$client_res->id.'') }}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                                             <button class="btn btn-success btn-sm" onclick="udpate_cleint_status('{{ $client_res->id }}','{{ $client_res->status }}')">Update Status</button>
                                                             <a href="{{ URL::to('agent-update/'.$client_res->id.'') }}" class="action-icon text-success"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                         </td>
@@ -218,7 +222,7 @@
                                     <h4 class="modal-title" id="standard-modalLabel">Update Client Status</h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                                 </div>
-                                <form action="{{ URL::to('udpate_cleint_status') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ URL::to('udpate_cleint_status_admin') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal-body">
                                 
@@ -233,7 +237,7 @@
                                     </div>
   
                                     <input type="text" hidden name="client_id" id="client_id">
-                                
+                                    <input type="text" hidden name="update_by" value="admin">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
@@ -281,7 +285,7 @@
 
                 function udpate_cleint_status(id,status){
                     console.log('id is '+id);
-                    console.log('status is '+status);
+                    console.log('status is'+status);
                     $('#sub_cat_update').modal('show');
                     $('#client_status').val(status).change();
                     $('#client_id').val(id);
