@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2023 at 09:13 AM
+-- Generation Time: Jul 03, 2023 at 10:44 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -43,6 +43,7 @@ CREATE TABLE `agents` (
   `display_on_web` varchar(255) NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'active',
+  `client_assigns` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -51,9 +52,10 @@ CREATE TABLE `agents` (
 -- Dumping data for table `agents`
 --
 
-INSERT INTO `agents` (`id`, `fname`, `lname`, `opening_bal`, `balance`, `email`, `password`, `picture`, `country`, `city`, `phone`, `address`, `display_on_web`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Khashif', 'Ali', 4000.00, 4000.00, 'kashif@gmail.com', '$2y$10$nLff.4k1e9J8rhmqvmmj6e3Fd0QGWzXpf8FWFR4JTmy6H5OSGEqE6', '1768896626127684.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', '2023-06-16 16:34:40', '2023-06-16 16:34:40'),
-(2, 'Aslam', 'Chohan', 5000.00, 5000.00, 'aslam@gmail.com', '$2y$10$lSsquNrpVjCTrkbPTZluCOzqlbm8Sl4.lcT2WuTlIrhPWtJz5oJVq', '1768896822548539.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', '2023-06-16 16:37:48', '2023-06-16 16:37:48');
+INSERT INTO `agents` (`id`, `fname`, `lname`, `opening_bal`, `balance`, `email`, `password`, `picture`, `country`, `city`, `phone`, `address`, `display_on_web`, `user_id`, `status`, `client_assigns`, `created_at`, `updated_at`) VALUES
+(1, 'Khashif', 'Ali', 4000.00, 4000.00, 'kashif@gmail.com', '$2y$10$nLff.4k1e9J8rhmqvmmj6e3Fd0QGWzXpf8FWFR4JTmy6H5OSGEqE6', '1768896626127684.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:34:40', '2023-06-28 11:32:27'),
+(2, 'Aslam', 'Chohan', 5000.00, 5000.00, 'aslam@gmail.com', '$2y$10$lSsquNrpVjCTrkbPTZluCOzqlbm8Sl4.lcT2WuTlIrhPWtJz5oJVq', '1768896822548539.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:37:48', '2023-06-28 11:33:23'),
+(3, 'Muhammad', 'Ali', 20000.00, 20000.00, 'ali@gmail.com', '$2y$10$w0BNDulJZMvCBEndjQ4PL.zPxAMDJ/vo0i/S9Xpk9KwAZ/xm.1mtW', '1769976804314240.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Test Addresst', '1', 1, 'active', 0, '2023-06-28 19:43:38', '2023-06-28 19:43:38');
 
 -- --------------------------------------------------------
 
@@ -108,7 +110,8 @@ CREATE TABLE `cash_accounts` (
 --
 
 INSERT INTO `cash_accounts` (`id`, `account_name`, `account_number`, `opening_bal`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Cash in Hand', '348342342343', 5000.00, 1, '2023-06-23 07:09:10', '2023-06-23 07:09:10');
+(1, 'Cash in Hand', '348342342343', 5000.00, 1, '2023-06-23 07:09:10', '2023-06-23 07:09:10'),
+(2, 'HBL Account', 'HBL Account', 5000.00, 1, '2023-06-28 19:44:15', '2023-06-28 19:44:15');
 
 -- --------------------------------------------------------
 
@@ -129,7 +132,8 @@ CREATE TABLE `cash_accounts_bals` (
 --
 
 INSERT INTO `cash_accounts_bals` (`id`, `balance`, `account_id`, `created_at`, `updated_at`) VALUES
-(1, 2500.00, 1, '2023-06-23 07:09:10', '2023-06-23 07:13:10');
+(1, 2500.00, 1, '2023-06-23 07:09:10', '2023-06-23 07:13:10'),
+(2, 5000.00, 2, '2023-06-28 19:44:15', '2023-06-28 19:44:15');
 
 -- --------------------------------------------------------
 
@@ -175,6 +179,8 @@ CREATE TABLE `clients` (
   `created_by` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(30) DEFAULT NULL,
+  `update_by_id` int(11) DEFAULT NULL,
   `dealer_name` varchar(255) DEFAULT NULL,
   `client_profession` varchar(255) DEFAULT NULL,
   `client_address` varchar(255) DEFAULT NULL,
@@ -186,15 +192,22 @@ CREATE TABLE `clients` (
 -- Dumping data for table `clients`
 --
 
-INSERT INTO `clients` (`id`, `first_name`, `last_name`, `phone`, `client_type`, `country`, `city`, `client_resource`, `status`, `assign_to`, `created_by`, `created_at`, `updated_at`, `dealer_name`, `client_profession`, `client_address`, `other_phone`, `email`) VALUES
-(15, 'Muhammad', 'Usama', '+9230203499393', 'Dealer', 'PAKISTAN', 'test', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:02:29', '2023-06-17 05:02:29', NULL, NULL, NULL, NULL, NULL),
-(16, 'Muhammad', 'Hassan', '+9230203499', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:04:27', '2023-06-17 05:04:27', NULL, NULL, NULL, NULL, NULL),
-(17, 'Muhammad', 'Hassan', '+9230203499', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:04:58', '2023-06-17 05:04:58', NULL, NULL, NULL, NULL, NULL),
-(18, 'Muhammad', 'Farhan', '+9242346456455', 'Dealer', 'PAKISTAN', 'Sarhgodah', 'UAN', 'Lost', 1, 1, '2023-06-17 19:47:20', '2023-06-19 04:12:37', NULL, NULL, NULL, NULL, NULL),
-(19, 'Muhammad', 'Majid', '+92303034934', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Others', 'In Progress', 1, 1, '2023-06-18 11:08:45', '2023-06-19 02:01:48', NULL, NULL, NULL, NULL, NULL),
-(20, 'Muhammad', 'Ali', '+9230203499393', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Walk-In', 'Open', 2, 2, '2023-06-22 06:13:45', '2023-06-22 06:13:45', NULL, NULL, NULL, NULL, NULL),
-(21, 'Muhammad', 'Attaullah', '+9230203499393', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-23 06:18:52', '2023-06-23 06:18:52', 'Dealer Name', 'Web Deveploer', 'Muhammad', '+9230203499393', 'usama.asghar7868@gmail.com'),
-(22, 'New', 'Client', '+9242346456455', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Live Chat', 'Open', 1, 1, '2023-06-23 06:24:13', '2023-06-23 06:24:13', 'TEst Dealer', 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar7868@gmail.com');
+INSERT INTO `clients` (`id`, `first_name`, `last_name`, `phone`, `client_type`, `country`, `city`, `client_resource`, `status`, `assign_to`, `created_by`, `created_at`, `updated_at`, `updated_by`, `update_by_id`, `dealer_name`, `client_profession`, `client_address`, `other_phone`, `email`) VALUES
+(15, 'Muhammad', 'Usama', '+9230203499393', 'Dealer', 'PAKISTAN', 'test', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:02:29', '2023-06-17 05:02:29', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 'Muhammad', 'Hassan', '+9230203499', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'In Progress', 1, 1, '2023-06-17 05:04:27', '2023-06-28 19:26:50', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 'Muhammad', 'Hassan', '+9230203499', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-17 05:04:58', '2023-06-17 05:04:58', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 'Muhammad', 'Farhan', '+9242346456455', 'Dealer', 'PAKISTAN', 'Sarhgodah', 'UAN', 'Lost', 1, 1, '2023-06-17 19:47:20', '2023-06-19 04:12:37', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 'Muhammad', 'Majid', '+92303034934', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Others', 'In Progress', 1, 1, '2023-06-18 11:08:45', '2023-06-24 19:03:50', NULL, NULL, 'Dealer Name', NULL, NULL, NULL, NULL),
+(20, 'Muhammad', 'Ali', '+9230203499393', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Walk-In', 'Open', 2, 2, '2023-06-22 06:13:45', '2023-06-22 06:13:45', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 'Muhammad', 'Attaullah', '+9230203499393', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 1, 1, '2023-06-23 06:18:52', '2023-06-23 06:18:52', NULL, NULL, 'Dealer Name', 'Web Deveploer', 'Muhammad', '+9230203499393', 'usama.asghar7868@gmail.com'),
+(22, 'New', 'Client', '+9242346456455', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Live Chat', 'In Progress', 1, 1, '2023-06-23 06:24:13', '2023-06-24 19:09:27', 'agent', 1, 'TEst Dealer', 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar7868@gmail.com'),
+(23, 'Muhammad', 'Junaid', '0333-2323232', 'Walk In', 'PAKISTAN', 'Sheikhupura', 'Walk-In', 'Open', 1, 1, '2023-06-28 10:23:21', '2023-06-28 11:30:50', NULL, NULL, NULL, 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar7868@gmail.com'),
+(24, 'Muhammad', 'Saqib', '+9230203499393', 'Walk In', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 2, 1, '2023-06-28 10:54:36', '2023-06-28 11:30:50', NULL, NULL, NULL, 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar78688@gmail.com'),
+(25, 'Usama', 'Ali', '0333-2323232', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Lost', 1, 1, '2023-06-28 10:55:11', '2023-06-28 19:29:53', 'agent', 1, 'TEst Dealer', 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar78688@gmail.com'),
+(26, 'Muhammad', 'Awab', '+9230203499393', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 2, 1, '2023-06-28 11:31:31', '2023-06-28 11:31:41', NULL, NULL, 'TEst Dealer', 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar7868@gmail.com'),
+(27, 'Muhammad', 'Aslam Chohan', '+9230203499393', 'Dealer', 'PAKISTAN', 'Sarhgodah', 'Personal Client', 'Mature', 1, 1, '2023-06-28 11:32:12', '2023-06-28 19:28:44', 'agent', 1, NULL, 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar7868@gmail.com'),
+(28, 'Expense', 'Ali', '0333-2323232', 'Dealer', 'PAKISTAN', 'Sheikhupura', 'Personal Client', 'Open', 2, 1, '2023-06-28 11:33:15', '2023-06-28 11:33:23', NULL, NULL, 'TEst Dealer', 'Laravel Developer', 'This is Cleint Address', '+9230432423423', 'usama.asghar78688@gmail.com'),
+(29, 'Muhammad', 'Ali', '0333-2323232', 'Dealer', 'PAKISTAN', 'Sarhgodah', 'Others', 'Open', 1, 1, '2023-06-28 19:27:53', '2023-06-28 19:27:53', NULL, NULL, 'TEst Dealer', 'Laravel Developer', 'Thsisi si is is id isd isdfsdjl flsdjfklsd jlsdkfjsdfsdkf dfksdf', '+9230432423423', 'usama.asghar78688@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -220,7 +233,8 @@ CREATE TABLE `clients_follow_ups` (
 INSERT INTO `clients_follow_ups` (`id`, `client_id`, `next_follow_up_time`, `sub_category_id`, `follow_up_message`, `follow_up_by`, `created_at`, `updated_at`) VALUES
 (4, 19, '2023-06-19 07:06:00', 1, 'I Have Take Follow Up', '1', '2023-06-19 02:01:48', '2023-06-19 02:01:48'),
 (5, 18, NULL, 2, 'Wrong Number Format', '1', '2023-06-19 02:06:50', '2023-06-19 02:06:50'),
-(6, 19, '2023-06-19 01:08:00', 3, 'I Take Next Follow Up', '1', '2023-06-19 02:08:06', '2023-06-19 02:08:06');
+(6, 19, '2023-06-19 01:08:00', 3, 'I Take Next Follow Up', '1', '2023-06-19 02:08:06', '2023-06-19 02:08:06'),
+(7, 16, '2023-06-29 02:26:00', 3, 'I Follow Up this Client', '1', '2023-06-28 19:26:50', '2023-06-28 19:26:50');
 
 -- --------------------------------------------------------
 
@@ -504,7 +518,7 @@ CREATE TABLE `curren_follow_ups` (
 
 INSERT INTO `curren_follow_ups` (`id`, `client_id`, `follow_up_time`, `status`, `created_at`, `updated_at`) VALUES
 (1, 15, '2023-06-17 11:02:29', 'true', NULL, NULL),
-(2, 16, '2023-06-17 11:04:27', 'false', NULL, NULL),
+(2, 16, '2023-06-17 11:04:27', 'true', NULL, '2023-06-28 19:26:50'),
 (3, 17, '2023-06-17 11:04:58', 'false', NULL, NULL),
 (4, 18, '2023-06-18 01:47:20', 'true', NULL, '2023-06-19 02:06:50'),
 (5, 19, '2023-06-18 17:08:45', 'true', NULL, '2023-06-19 02:01:48'),
@@ -512,7 +526,9 @@ INSERT INTO `curren_follow_ups` (`id`, `client_id`, `follow_up_time`, `status`, 
 (7, 19, '2023-06-19 13:08:00', 'false', NULL, NULL),
 (8, 20, '2023-06-22 12:13:46', 'false', NULL, NULL),
 (9, 21, '2023-06-23 12:18:52', 'false', NULL, NULL),
-(10, 22, '2023-06-23 12:24:13', 'false', NULL, NULL);
+(10, 22, '2023-06-23 12:24:13', 'false', NULL, NULL),
+(11, 16, '2023-06-29 02:26:00', 'false', NULL, NULL),
+(12, 29, '2023-06-29 01:27:53', 'false', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -558,7 +574,8 @@ CREATE TABLE `expense_categories` (
 --
 
 INSERT INTO `expense_categories` (`id`, `exp_category_name`, `created_at`, `updated_at`) VALUES
-(1, 'cat1', '2023-06-23 07:12:38', '2023-06-23 07:12:38');
+(1, 'cat1', '2023-06-23 07:12:38', '2023-06-23 07:12:38'),
+(2, 'Mantaince', '2023-06-28 19:51:13', '2023-06-28 19:51:13');
 
 -- --------------------------------------------------------
 
@@ -580,7 +597,8 @@ CREATE TABLE `expense_sub_categories` (
 --
 
 INSERT INTO `expense_sub_categories` (`id`, `exp_sub_category`, `category_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'subcat1', 1, 1, '2023-06-23 07:12:50', '2023-06-23 07:12:50');
+(1, 'subcat1', 1, 1, '2023-06-23 07:12:50', '2023-06-23 07:12:50'),
+(2, 'Sub mantaince meran', 1, 1, '2023-06-28 19:51:22', '2023-06-28 19:51:22');
 
 -- --------------------------------------------------------
 
@@ -617,7 +635,8 @@ CREATE TABLE `follow_up_categories` (
 
 INSERT INTO `follow_up_categories` (`id`, `follow_up_name`, `created_at`, `updated_at`) VALUES
 (1, 'Follow Up', '2023-06-18 08:11:40', '2023-06-18 10:36:54'),
-(2, 'Reject', '2023-06-18 10:37:07', '2023-06-18 10:37:07');
+(2, 'Reject', '2023-06-18 10:37:07', '2023-06-18 10:37:07'),
+(3, 'Test', '2023-06-24 19:15:52', '2023-06-24 19:15:52');
 
 -- --------------------------------------------------------
 
@@ -644,7 +663,8 @@ INSERT INTO `follow_up_sub_categories` (`id`, `follow_up_sub_category`, `categor
 (3, 'Seems Interested', 1, 1, '2023-06-18 13:55:08', '2023-06-18 13:55:08'),
 (4, 'Need Time to Think', 1, 1, '2023-06-18 13:55:23', '2023-06-18 13:55:23'),
 (5, 'Wrong Number', 2, 1, '2023-06-18 13:55:37', '2023-06-18 13:55:37'),
-(6, 'Invalid Number', 2, 1, '2023-06-18 13:55:55', '2023-06-18 13:55:55');
+(6, 'Invalid Number', 2, 1, '2023-06-18 13:55:55', '2023-06-18 13:55:55'),
+(7, 'Tesst Sub', 3, 1, '2023-06-24 19:16:10', '2023-06-24 19:16:10');
 
 -- --------------------------------------------------------
 
@@ -894,7 +914,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `agents`
 --
 ALTER TABLE `agents`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cash_accountledgers`
@@ -906,13 +926,13 @@ ALTER TABLE `cash_accountledgers`
 -- AUTO_INCREMENT for table `cash_accounts`
 --
 ALTER TABLE `cash_accounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cash_accounts_bals`
 --
 ALTER TABLE `cash_accounts_bals`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cash_account_deposits`
@@ -924,13 +944,13 @@ ALTER TABLE `cash_account_deposits`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `clients_follow_ups`
 --
 ALTER TABLE `clients_follow_ups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `country`
@@ -942,7 +962,7 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT for table `curren_follow_ups`
 --
 ALTER TABLE `curren_follow_ups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `expenses`
@@ -954,13 +974,13 @@ ALTER TABLE `expenses`
 -- AUTO_INCREMENT for table `expense_categories`
 --
 ALTER TABLE `expense_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `expense_sub_categories`
 --
 ALTER TABLE `expense_sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -972,13 +992,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `follow_up_categories`
 --
 ALTER TABLE `follow_up_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `follow_up_sub_categories`
 --
 ALTER TABLE `follow_up_sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `lead_users`
