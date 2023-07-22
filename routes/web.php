@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\members\AgentController;
+use App\Http\Controllers\members\CustomerController;
+
 use App\Http\Controllers\Clients\ClientController;
 use App\Http\Controllers\Clients\FollowUpCatController;
 
@@ -10,6 +12,11 @@ use App\Http\Controllers\Accounts\AccountsController;
 use App\Http\Controllers\Accounts\PaymentsController;
 use App\Http\Controllers\Accounts\ReceivedController;
 use App\Http\Controllers\Accounts\ExpenseController;
+
+use App\Http\Controllers\location\LocationsController;
+use App\Http\Controllers\location\SocietyController;
+use App\Http\Controllers\location\BlockController;
+use App\Http\Controllers\location\PlotController;
 
 
 
@@ -118,6 +125,47 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/expense_print/{id}', [ExpenseController::class,'expense_print']);
     Route::post('/expense-cat-update', [ExpenseController::class,'update']);
     Route::post('/expense-sub-cat-update', [ExpenseController::class,'sub_cat_update']);
+
+    // Marla
+    Route::post('/add_marala_type', [SocietyController::class,'add_marala_type']);
+    Route::post('/fetch_marala_type', [SocietyController::class,'fetch_marala_type']);
+
+    // Locations 
+    Route::get('/locations-list', [LocationsController::class,'index']);
+    Route::get('/add-location', [LocationsController::class,'create']);
+    Route::post('/location-submit', [LocationsController::class,'store']);
+    Route::get('/location-update/{id}', [LocationsController::class,'edit']);
+    Route::post('/location-update/{id}', [LocationsController::class,'update']);
+
+    // Society
+    Route::get('/add-society', [SocietyController::class,'create']);
+    Route::get('/societies-list', [SocietyController::class,'index']);
+    Route::post('/society-submit', [SocietyController::class,'store']);
+    Route::get('/society-update/{id}', [SocietyController::class,'edit']);
+    Route::post('/society-update/{id}', [SocietyController::class,'update']);
+    Route::post('/fetch_socities_wi_location', [SocietyController::class,'fetch_socities_wi_location']);
+    Route::post('/fetch_blocks_wi_scotites', [SocietyController::class,'fetch_blocks_wi_scotites']);
+
+    // Blocks
+    Route::get('/block-list', [BlockController::class,'index']);
+    Route::post('/block-submit', [BlockController::class,'store']);
+
+    // Plots
+    Route::get('/plots-list', [PlotController::class,'index']);
+    Route::get('/add-plot', [PlotController::class,'create']);
+    Route::post('/plots-submit', [PlotController::class,'store']);
+
+    // Customers
+    Route::get('/add-customer', [CustomerController::class,'create']);
+    Route::get('/customers-list', [CustomerController::class,'index']);
+    Route::get('/customer-profile/{id}', [CustomerController::class,'show']);
+    Route::post('/customer-submit', [CustomerController::class,'store']);
+    Route::get('/customer-update/{id}', [CustomerController::class,'edit']);
+    Route::post('/customer-update/{id}', [CustomerController::class,'update']);
+    Route::get('/fetch_customer_list', [CustomerController::class,'fetch_customer_list']);
+    Route::get('/fetch_customer_bal/{id}', [CustomerController::class,'fetch_customer_bal']);
+    Route::get('/customer-ledeger/{id}', [CustomerController::class,'customerLedeger']);
+    
 
 });
 

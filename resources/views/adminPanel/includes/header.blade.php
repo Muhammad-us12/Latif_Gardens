@@ -121,6 +121,81 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#locationNav" aria-expanded="false" aria-controls="locationNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Locations </span>
+                            </a>
+                            <div class="collapse" id="locationNav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('locations-list') }}">Location List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('add-location') }}">Location Add</a>
+                                    </li>
+                                    
+                                    
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#socNav" aria-expanded="false" aria-controls="socNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Societies </span>
+                            </a>
+                            <div class="collapse" id="socNav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('societies-list') }}">Societies List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('add-society') }}">Society Add</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('block-list') }}">Block List</a>
+                                    </li>    
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#plotNav" aria-expanded="false" aria-controls="plotNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Plots </span>
+                            </a>
+                            <div class="collapse" id="plotNav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('plots-list') }}">Plots List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('add-plot') }}">Plot Add</a>
+                                    </li>   
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#customerNav" aria-expanded="false" aria-controls="customerNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Customers </span>
+                            </a>
+                            <div class="collapse" id="customerNav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('customers-list') }}">Customers List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('add-customer') }}">Customer Add</a>
+                                    </li>  
+                                </ul>
+                            </div>
+                        </li>
 
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#accountNav" aria-expanded="false" aria-controls="accountNav" class="side-nav-link">
