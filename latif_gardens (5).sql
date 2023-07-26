@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2023 at 10:44 AM
+-- Generation Time: Jul 26, 2023 at 09:07 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -53,9 +53,62 @@ CREATE TABLE `agents` (
 --
 
 INSERT INTO `agents` (`id`, `fname`, `lname`, `opening_bal`, `balance`, `email`, `password`, `picture`, `country`, `city`, `phone`, `address`, `display_on_web`, `user_id`, `status`, `client_assigns`, `created_at`, `updated_at`) VALUES
-(1, 'Khashif', 'Ali', 4000.00, 4000.00, 'kashif@gmail.com', '$2y$10$nLff.4k1e9J8rhmqvmmj6e3Fd0QGWzXpf8FWFR4JTmy6H5OSGEqE6', '1768896626127684.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:34:40', '2023-06-28 11:32:27'),
+(1, 'Khashif', 'Ali', 4000.00, 10000.00, 'kashif@gmail.com', '$2y$10$nLff.4k1e9J8rhmqvmmj6e3Fd0QGWzXpf8FWFR4JTmy6H5OSGEqE6', '1768896626127684.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:34:40', '2023-07-26 06:56:58'),
 (2, 'Aslam', 'Chohan', 5000.00, 5000.00, 'aslam@gmail.com', '$2y$10$lSsquNrpVjCTrkbPTZluCOzqlbm8Sl4.lcT2WuTlIrhPWtJz5oJVq', '1768896822548539.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:37:48', '2023-06-28 11:33:23'),
 (3, 'Muhammad', 'Ali', 20000.00, 20000.00, 'ali@gmail.com', '$2y$10$w0BNDulJZMvCBEndjQ4PL.zPxAMDJ/vo0i/S9Xpk9KwAZ/xm.1mtW', '1769976804314240.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Test Addresst', '1', 1, 'active', 0, '2023-06-28 19:43:38', '2023-06-28 19:43:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agent_ledegers`
+--
+
+CREATE TABLE `agent_ledegers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `payment` varchar(50) DEFAULT NULL,
+  `received` varchar(50) DEFAULT NULL,
+  `commission` varchar(50) DEFAULT NULL,
+  `balance` varchar(50) NOT NULL,
+  `payment_id` int(11) DEFAULT NULL,
+  `recevied_id` int(11) DEFAULT NULL,
+  `file_id` int(11) DEFAULT NULL,
+  `property_id` int(11) DEFAULT NULL,
+  `agent_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `agent_ledegers`
+--
+
+INSERT INTO `agent_ledegers` (`id`, `payment`, `received`, `commission`, `balance`, `payment_id`, `recevied_id`, `file_id`, `property_id`, `agent_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, '6000', NULL, NULL, '10000', NULL, 4, NULL, NULL, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blocks`
+--
+
+CREATE TABLE `blocks` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `block_name` varchar(255) NOT NULL,
+  `scoiety` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `blocks`
+--
+
+INSERT INTO `blocks` (`id`, `block_name`, `scoiety`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'A Block', 1, 1, '2023-07-22 01:56:58', '2023-07-22 01:56:58'),
+(2, 'B block', 1, 1, '2023-07-22 01:57:13', '2023-07-22 01:57:13'),
+(3, 'C Block', 1, 1, '2023-07-22 01:57:35', '2023-07-22 01:57:35');
 
 -- --------------------------------------------------------
 
@@ -87,7 +140,9 @@ CREATE TABLE `cash_accountledgers` (
 
 INSERT INTO `cash_accountledgers` (`id`, `payment`, `received`, `balance`, `deposit_id`, `payment_id`, `recevied_id`, `file_id`, `property_id`, `expense_id`, `account_id`, `user_id`, `insevter_name`, `created_at`, `updated_at`) VALUES
 (1, NULL, '500', '5500', 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 'Test', '2023-06-23 07:12:22', '2023-06-23 07:12:22'),
-(2, '3000', NULL, '2500', NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, '2023-06-23 07:13:10', '2023-06-23 07:13:10');
+(2, '3000', NULL, '2500', NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, '2023-06-23 07:13:10', '2023-06-23 07:13:10'),
+(6, '2500', NULL, '0', NULL, NULL, 4, NULL, NULL, NULL, 1, 1, NULL, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
+(7, NULL, '3008500', '3008500', NULL, NULL, 4, NULL, NULL, NULL, 1, 1, NULL, '2023-07-26 06:56:58', '2023-07-26 06:56:58');
 
 -- --------------------------------------------------------
 
@@ -132,7 +187,7 @@ CREATE TABLE `cash_accounts_bals` (
 --
 
 INSERT INTO `cash_accounts_bals` (`id`, `balance`, `account_id`, `created_at`, `updated_at`) VALUES
-(1, 2500.00, 1, '2023-06-23 07:09:10', '2023-06-23 07:13:10'),
+(1, 3008500.00, 1, '2023-06-23 07:09:10', '2023-07-26 06:56:58'),
 (2, 5000.00, 2, '2023-06-28 19:44:15', '2023-06-28 19:44:15');
 
 -- --------------------------------------------------------
@@ -533,6 +588,98 @@ INSERT INTO `curren_follow_ups` (`id`, `client_id`, `follow_up_time`, `status`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customerledgers`
+--
+
+CREATE TABLE `customerledgers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `payment` double(15,2) DEFAULT NULL,
+  `received` double(15,2) DEFAULT NULL,
+  `balance` double(15,2) NOT NULL,
+  `plot_balance` double(15,2) NOT NULL,
+  `payment_id` int(11) DEFAULT NULL,
+  `recevied_id` int(11) DEFAULT NULL,
+  `plot_id` int(11) DEFAULT NULL,
+  `plot_balance_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customerledgers`
+--
+
+INSERT INTO `customerledgers` (`id`, `payment`, `received`, `balance`, `plot_balance`, `payment_id`, `recevied_id`, `plot_id`, `plot_balance_id`, `customer_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, NULL, 6000000.00, 6000000.00, 6000000.00, NULL, NULL, 1, 2, 1, 1, '2023-07-23 11:24:35', '2023-07-23 11:24:35'),
+(3, NULL, 7000000.00, 7000000.00, 7000000.00, NULL, NULL, 4, 3, 1, 1, '2023-07-25 05:45:20', '2023-07-25 05:45:20'),
+(4, 3000000.00, NULL, 3000000.00, 3000000.00, NULL, 4, 1, 2, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `balance` double(15,2) NOT NULL DEFAULT 0.00,
+  `custfname` varchar(255) NOT NULL,
+  `custlname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `CNIC` varchar(255) NOT NULL,
+  `customer_type` varchar(255) NOT NULL,
+  `picture` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `balance`, `custfname`, `custlname`, `email`, `CNIC`, `customer_type`, `picture`, `country`, `city`, `phone`, `address`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 0.00, 'Muhammad Usama', 'Asghar up', 'usama.asghar7868@gmail.com', '35404-0417655-7', 'Customer', '1772147619565345.jpeg', 'PAKISTAN', 'Sheikhupura', '+9230203499393', 'Test Address', 1, 'active', '2023-07-22 18:47:49', '2023-07-22 18:49:21'),
+(2, 0.00, 'Muhammad', 'Ali', 'ali@gmail.com', '32423482304345', 'Customer', '1772460854117327.png', 'PAKISTAN', 'Sheikhupura', '+9230203499393', 'Test Address', 1, 'active', '2023-07-26 05:46:33', '2023-07-26 05:46:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customer_plots`
+--
+
+CREATE TABLE `customer_plots` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `plot_id` int(11) NOT NULL,
+  `total_plot_price` double(15,2) NOT NULL,
+  `balance` double(15,2) NOT NULL,
+  `plot_owner` tinyint(1) NOT NULL DEFAULT 1,
+  `customer_id` int(11) NOT NULL,
+  `plot_sale_id` int(11) DEFAULT NULL,
+  `plot_re_sale_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customer_plots`
+--
+
+INSERT INTO `customer_plots` (`id`, `plot_id`, `total_plot_price`, `balance`, `plot_owner`, `customer_id`, `plot_sale_id`, `plot_re_sale_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, 1, 6000000.00, 3000000.00, 1, 1, 2, NULL, 1, '2023-07-23 11:24:35', '2023-07-26 06:56:58'),
+(3, 4, 7000000.00, 7000000.00, 1, 1, 3, NULL, 1, '2023-07-25 05:45:20', '2023-07-25 05:45:20');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `expenses`
 --
 
@@ -686,6 +833,52 @@ CREATE TABLE `lead_users` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `locations`
+--
+
+CREATE TABLE `locations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `location_name` varchar(255) NOT NULL,
+  `picture` varchar(255) NOT NULL,
+  `description` longtext DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `location_name`, `picture`, `description`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Sheikhupura', '1772083618643312.jpg', '<p>This is Sheikhupura</p>', 1, '2023-07-22 01:50:33', '2023-07-22 01:50:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `maralas`
+--
+
+CREATE TABLE `maralas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `marala` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `maralas`
+--
+
+INSERT INTO `maralas` (`id`, `marala`, `created_at`, `updated_at`) VALUES
+(1, '3', '2023-07-22 02:34:02', '2023-07-22 02:34:02'),
+(2, '5', '2023-07-22 02:34:12', '2023-07-22 02:34:12'),
+(3, '8', '2023-07-22 02:34:22', '2023-07-22 02:34:22'),
+(4, '10', '2023-07-22 02:34:29', '2023-07-22 02:34:29');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -711,7 +904,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2023_06_18_124909_create_follow_up_categories_table', 5),
 (11, '2023_06_18_124933_create_follow_up_sub_categories_table', 5),
 (12, '2023_06_18_190329_create_clients_follow_ups_table', 6),
-(14, '2023_06_23_103545_add_column_to_clients_table', 7);
+(14, '2023_06_23_103545_add_column_to_clients_table', 7),
+(16, '2023_07_22_070400_create_plots_table', 8),
+(22, '2022_10_28_051525_create_customers_table', 9),
+(23, '2022_10_28_051547_create_customer_balances_table', 9),
+(24, '2022_11_21_082027_create_customerledgers_table', 9),
+(25, '2023_07_23_125301_create_plot_sales_table', 10);
 
 -- --------------------------------------------------------
 
@@ -723,6 +921,29 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `date` date DEFAULT NULL,
+  `prev_balance` varchar(50) DEFAULT NULL,
+  `updated_balance` varchar(50) DEFAULT NULL,
+  `total_payments` varchar(50) NOT NULL,
+  `Criteria` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Criteria`)),
+  `Content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Content`)),
+  `Content_Ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Content_Ids`)),
+  `Amount` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Amount`)),
+  `remarks` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`remarks`)),
+  `payment_from` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -747,6 +968,130 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `plots`
+--
+
+CREATE TABLE `plots` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `plot_no` varchar(255) NOT NULL,
+  `location_id` int(11) NOT NULL,
+  `society_id` int(11) NOT NULL,
+  `block_id` int(11) NOT NULL,
+  `marala_type` int(11) NOT NULL,
+  `state_type` varchar(255) NOT NULL,
+  `plot_cost_price` double(15,2) NOT NULL,
+  `plot_sale_price` double(15,2) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'Not Sale',
+  `description` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `plots`
+--
+
+INSERT INTO `plots` (`id`, `plot_no`, `location_id`, `society_id`, `block_id`, `marala_type`, `state_type`, `plot_cost_price`, `plot_sale_price`, `status`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'A1', 1, 1, 1, 1, 'Residentail', 4000000.00, 5000000.00, 'Sale Progress', '<p>This is Residentail</p>', NULL, '2023-07-23 11:24:35'),
+(3, 'A2', 1, 1, 1, 2, 'Residentail', 5000000.00, 6000000.00, 'Not Sale', '<p>This is Residentail</p>', NULL, NULL),
+(4, 'B1', 1, 1, 2, 2, 'Commerical', 5000000.00, 6000000.00, 'Sale Progress', NULL, NULL, '2023-07-25 05:45:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plot_sales`
+--
+
+CREATE TABLE `plot_sales` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL,
+  `society_id` int(11) NOT NULL,
+  `block_id` int(11) NOT NULL,
+  `plot_id` int(11) NOT NULL,
+  `plot_cost_price` double(15,2) NOT NULL,
+  `plot_demand` double(15,2) NOT NULL,
+  `plot_sale_price` double(15,2) NOT NULL,
+  `at_booking_perc` double(15,2) NOT NULL,
+  `complete_in_years` int(11) NOT NULL,
+  `sixth_month_inst` double(15,2) NOT NULL,
+  `at_booking_price` double(15,2) NOT NULL,
+  `no_of_6_month_inst` int(11) NOT NULL,
+  `no_of_monthly_inst` int(11) NOT NULL,
+  `monthly_inst_price` double(15,2) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `plot_sales`
+--
+
+INSERT INTO `plot_sales` (`id`, `customer_id`, `location_id`, `society_id`, `block_id`, `plot_id`, `plot_cost_price`, `plot_demand`, `plot_sale_price`, `at_booking_perc`, `complete_in_years`, `sixth_month_inst`, `at_booking_price`, `no_of_6_month_inst`, `no_of_monthly_inst`, `monthly_inst_price`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 1, 1, 4000000.00, 5000000.00, 6000000.00, 30.00, 3, 400000.00, 1800000.00, 6, 30, 60000.00, 1, '2023-07-23 11:19:52', '2023-07-23 11:19:52'),
+(2, 1, 1, 1, 1, 1, 4000000.00, 5000000.00, 6000000.00, 30.00, 3, 300000.00, 1800000.00, 6, 30, 80000.00, 1, '2023-07-23 11:24:35', '2023-07-23 11:24:35'),
+(3, 1, 1, 1, 2, 4, 5000000.00, 6000000.00, 7000000.00, 30.00, 4, 600000.00, 2100000.00, 8, 40, 2500.00, 1, '2023-07-25 05:45:19', '2023-07-25 05:45:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recevied_payments`
+--
+
+CREATE TABLE `recevied_payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `date` date DEFAULT NULL,
+  `prev_balance` varchar(50) DEFAULT NULL,
+  `updated_balance` varchar(50) DEFAULT NULL,
+  `total_received` varchar(50) NOT NULL,
+  `Criteria` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Criteria`)),
+  `Content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Content`)),
+  `Content_Ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Content_Ids`)),
+  `plots_balance_ids` text DEFAULT NULL,
+  `Amount` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Amount`)),
+  `remarks` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`remarks`)),
+  `received_from` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `recevied_payments`
+--
+
+INSERT INTO `recevied_payments` (`id`, `date`, `prev_balance`, `updated_balance`, `total_received`, `Criteria`, `Content`, `Content_Ids`, `plots_balance_ids`, `Amount`, `remarks`, `received_from`, `user_id`, `created_at`, `updated_at`) VALUES
+(4, '2023-07-26', '2500', '3011000', '3008500', '[\"Account\",\"Agent\",\"Customer\"]', '[\"Cash in Hand\",\"Khashif Ali\",\"Muhammad Usama Asghar up\"]', '[\"1\",\"1\",\"1\"]', '[\"null\",\"null\",\"2\"]', '[\"2500\",\"6000\",\"3000000\"]', '[\"Account Remarks\",\"Agent Remarks\",\"Customer Remarks\"]', 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `societies`
+--
+
+CREATE TABLE `societies` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `society_name` varchar(255) NOT NULL,
+  `picture` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `location` bigint(20) UNSIGNED NOT NULL,
+  `display_on_web` varchar(10) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `societies`
+--
+
+INSERT INTO `societies` (`id`, `society_name`, `picture`, `description`, `location`, `display_on_web`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'Latif Gardens Phase 1', '1772083752596638.png', '<p>Latif Gardens Phase 1 Project up<br></p>', 1, '1', 1, '2023-07-22 01:52:41', '2023-07-22 01:55:49');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -757,6 +1102,7 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
+  `role` varchar(30) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -765,8 +1111,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Muhammad Usama', 'usama.asghar7868@gmail.com', NULL, '$2y$10$6027dIQgCHsJiYMiKIC0LOk0SiNV2HVibmBIXiFJoNYo.4ayRzrFi', NULL, '2023-06-13 17:04:16', '2023-06-13 17:04:16');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'Muhammad Usama', 'usama.asghar7868@gmail.com', NULL, '$2y$10$6027dIQgCHsJiYMiKIC0LOk0SiNV2HVibmBIXiFJoNYo.4ayRzrFi', NULL, 'admin', '2023-06-13 17:04:16', '2023-06-13 17:04:16');
 
 --
 -- Indexes for dumped tables
@@ -778,6 +1124,20 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 ALTER TABLE `agents`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `agents_email_unique` (`email`);
+
+--
+-- Indexes for table `agent_ledegers`
+--
+ALTER TABLE `agent_ledegers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `agent_ledegers_agent_id_foreign` (`agent_id`);
+
+--
+-- Indexes for table `blocks`
+--
+ALTER TABLE `blocks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `blocks_scoiety_foreign` (`scoiety`);
 
 --
 -- Indexes for table `cash_accountledgers`
@@ -832,6 +1192,25 @@ ALTER TABLE `curren_follow_ups`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `customerledgers`
+--
+ALTER TABLE `customerledgers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `customers_cnic_unique` (`CNIC`);
+
+--
+-- Indexes for table `customer_plots`
+--
+ALTER TABLE `customer_plots`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `expenses`
 --
 ALTER TABLE `expenses`
@@ -880,6 +1259,18 @@ ALTER TABLE `lead_users`
   ADD UNIQUE KEY `lead_users_email_unique` (`email`);
 
 --
+-- Indexes for table `locations`
+--
+ALTER TABLE `locations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `maralas`
+--
+ALTER TABLE `maralas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -892,12 +1283,46 @@ ALTER TABLE `password_resets`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `payments_payment_from_foreign` (`payment_from`);
+
+--
 -- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `plots`
+--
+ALTER TABLE `plots`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `plots_plot_no_unique` (`plot_no`);
+
+--
+-- Indexes for table `plot_sales`
+--
+ALTER TABLE `plot_sales`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `recevied_payments`
+--
+ALTER TABLE `recevied_payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `recevied_payments_received_from_foreign` (`received_from`);
+
+--
+-- Indexes for table `societies`
+--
+ALTER TABLE `societies`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `societies_location_foreign` (`location`);
 
 --
 -- Indexes for table `users`
@@ -917,10 +1342,22 @@ ALTER TABLE `agents`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `agent_ledegers`
+--
+ALTER TABLE `agent_ledegers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `blocks`
+--
+ALTER TABLE `blocks`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `cash_accountledgers`
 --
 ALTER TABLE `cash_accountledgers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `cash_accounts`
@@ -965,6 +1402,24 @@ ALTER TABLE `curren_follow_ups`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `customerledgers`
+--
+ALTER TABLE `customerledgers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `customer_plots`
+--
+ALTER TABLE `customer_plots`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
@@ -1007,16 +1462,58 @@ ALTER TABLE `lead_users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `locations`
+--
+ALTER TABLE `locations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `maralas`
+--
+ALTER TABLE `maralas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `plots`
+--
+ALTER TABLE `plots`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `plot_sales`
+--
+ALTER TABLE `plot_sales`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `recevied_payments`
+--
+ALTER TABLE `recevied_payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `societies`
+--
+ALTER TABLE `societies`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1027,6 +1524,18 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `agent_ledegers`
+--
+ALTER TABLE `agent_ledegers`
+  ADD CONSTRAINT `agent_ledegers_agent_id_foreign` FOREIGN KEY (`agent_id`) REFERENCES `agents` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `blocks`
+--
+ALTER TABLE `blocks`
+  ADD CONSTRAINT `blocks_scoiety_foreign` FOREIGN KEY (`scoiety`) REFERENCES `societies` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `cash_accountledgers`
@@ -1053,6 +1562,24 @@ ALTER TABLE `expenses`
 --
 ALTER TABLE `expense_sub_categories`
   ADD CONSTRAINT `expense_sub_categories_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `expense_categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_payment_from_foreign` FOREIGN KEY (`payment_from`) REFERENCES `cash_accounts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `recevied_payments`
+--
+ALTER TABLE `recevied_payments`
+  ADD CONSTRAINT `recevied_payments_received_from_foreign` FOREIGN KEY (`received_from`) REFERENCES `cash_accounts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `societies`
+--
+ALTER TABLE `societies`
+  ADD CONSTRAINT `societies_location_foreign` FOREIGN KEY (`location`) REFERENCES `locations` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
