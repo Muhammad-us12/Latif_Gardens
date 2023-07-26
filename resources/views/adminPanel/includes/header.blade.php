@@ -1,8 +1,8 @@
 <?php 
- 
+    use app\Helper;
                                     
      $agent_data = Auth::user()->img;
-                           
+
                         
    
                         

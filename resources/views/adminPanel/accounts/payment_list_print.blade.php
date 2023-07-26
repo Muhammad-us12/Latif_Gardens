@@ -1,3 +1,7 @@
+<?php 
+        use App\Helpers\Helper;
+
+?>
 @extends('adminPanel/print_master')   
     @section('content')
     <h3 style="margin-top:40px;">Payments Voucher</h3>
@@ -21,6 +25,7 @@
                     <th style="border:1px solid black;">Sr</th>
                     <th style="border:1px solid black;">Type</th>
                     <th style="border:1px solid black;">Particular</th>
+                    <th style="border:1px solid black;">Plot No#</th>
                     <td style="border:1px solid black;">Remarks</td>
 
                     <th style="border:1px solid black;">Credit</th>
@@ -34,6 +39,7 @@
                         <td style="border:1px solid black;">Account</td>
                         <td style="border:1px solid black;">{{ $payment_data->PaymentFrom->account_name; }}</td>
                         <td style="border:1px solid black;"></td>
+                        <td style="border:1px solid black;"></td>
                         <td style="border:1px solid black;">{{ number_format($payment_data->total_payments) }}</td>
                         <td style="border:1px solid black;"></td>
                      </tr>    
@@ -43,6 +49,7 @@
                         $content = json_decode($payment_data->Content);
                         $content_amount = json_decode($payment_data->Amount);
                         $remarks = json_decode($payment_data->remarks);
+                        $plots_ids = json_decode($payment_data->plots_balance_ids);
                     
                         $total_payment = 0;
                     @endphp
@@ -52,6 +59,17 @@
                         <td style="border:1px solid black;">{{ $loop->iteration + 1 }}</td>
                         <td style="border:1px solid black;">{{ $content_type[$key] }}</td>
                         <td style="border:1px solid black;">{{ $content[$key] }}</td>
+                        <td style="border:1px solid black;">
+                            <?php 
+                            // die;
+                            if($plots_ids[$key] !== "null"){
+                              $plot_data = Helper::get_plot_data($plots_ids[$key]);
+                              if($plot_data){
+                                echo $plot_data->plot_no;
+                              }
+                            }
+                            ?>
+                        </td>
                         <td style="border:1px solid black;">{{ $remarks[$key] }}</td>
                         <td style="border:1px solid black;"></td>
                         <td style="border:1px solid black;">{{ number_format($content_amount[$key]) }}</td>

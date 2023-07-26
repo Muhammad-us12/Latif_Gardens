@@ -3,6 +3,8 @@
 namespace App\Helpers;
 use App\Models\User;
 use App\Models\persons\Agent;
+use App\Models\persons\CustomerPlots;
+use App\Models\locations\Plot;
 use App\Models\Clients\ClientsFollowUp;
 use App\Models\Clients\FollowUpCategory;
 use App\Models\Clients\FollowUpSubCategory;
@@ -13,14 +15,28 @@ class Helper {
     public static function helperfunction1(){
         return "helper function 1 response";
     }
+
+    
     
     public static function prevent_multi_submit(){
         return true;
     }
+
+    
     
     public static function get_Client_follow_up($id){
         $client_follow_up_data = ClientsFollowUp::where('client_id',$id)->orderBy('id','desc')->first();
         return $client_follow_up_data;
+    }
+
+    public static function get_plot_data($id){
+        
+        $plot_balance = CustomerPlots::where('id',$id)->first();
+        $plot_data = Plot::where('id',$plot_balance->plot_id)->first();
+        // dd($plot_data);
+        // print_r($plot_data);
+        // die;
+        return $plot_data;
     }
     
     public static function get_sub_category_name($id=0){

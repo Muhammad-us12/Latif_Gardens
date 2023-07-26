@@ -63,11 +63,14 @@
                                     <div class="card-body">
                                         <div class="row mb-2">
                                             <div class="col-sm-5">
-                                                <h4 class="page-title">Customer Ledeger</h4>
+                                                <h4 class="page-title">Customer Plot Ledeger</h4>
                                             </div>
                                             <div class="col-sm-7">
                                                 <div class="text-sm-end">
-                                                <!-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#standard-modal"><i class="mdi mdi-plus-circle me-2"></i>Add Account</button> -->
+                                                    @isset($customer_plots_ledger[0])
+                                                        <h4>Customer Name: {{ $customer_plots_ledger[0]->custfname." ".$customer_plots_ledger[0]->custlname }}</h4>
+                                                        <h5>Customer CNIC: {{ $customer_plots_ledger[0]->CNIC }}</h5>
+                                                    @endisset    
                                                 </div>
                                             </div><!-- end col-->
                                         </div>
@@ -78,27 +81,28 @@
                                                     <tr>
                                                       
                                                         <th>ID</th>
-                                                        <th>Payment</th>
-                                                        <th>Recevied</th>
+                                                        <th>Credit</th>
+                                                        <th>Debit</th>
                                                         <th>Balance</th>
+                                                        <th>Plot No</th>
                                                         <th>Payment Id</th>
                                                         <th>Received Id</th>
-                                                        <th>File Id</th>
-                                                        <th>Property Id</th>
+                                                        <th>Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @isset($CashCustomerdata)
-                                                        @foreach($CashCustomerdata as $cash_res)
+                                                    @isset($customer_plots_ledger)
+                                                        @foreach($customer_plots_ledger as $cash_res)
                                                             <tr>
                                                                 <td>{{ $cash_res->id }}</td>
                                                                 <td>{{ number_format($cash_res->payment) }}</td>
                                                                 <td>{{ number_format($cash_res->received) }}</td>
                                                                 <td>{{ number_format($cash_res->balance) }}</td>
+                                                                <td>{{ $cash_res->plot_no }}</td>
                                                                 <td>{{ $cash_res->payment_id }}</td>
                                                                 <td>{{ $cash_res->recevied_id }}</td>
-                                                                <td>{{ $cash_res->file_id }}</td>
-                                                                <td>{{ $cash_res->property_id }}</td>
+                                                                <td>{{ date('d-m-Y',strtotime($cash_res->created_at)) }}</td>
+                                                                
                                                             </tr>
                                                         @endforeach
                                                     @endisset
@@ -107,7 +111,7 @@
                                                 </tbody>
                                             </table>
 
-                                            {!! $CashCustomerdata->links() !!}
+                                            {!! $customer_plots_ledger->links() !!}
                                         </div>
                                     </div> <!-- end card-body-->
                                 </div> <!-- end card-->

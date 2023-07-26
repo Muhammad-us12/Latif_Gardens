@@ -15,4 +15,9 @@ class Customers extends Model
     {
         return $this->hasOne(CustomerBalance::class,'customer_id');
     }
+
+    public function customerPlots()
+    {
+        return $this->hasMany(CustomerPlots::class, 'customer_id');
+    }
 }

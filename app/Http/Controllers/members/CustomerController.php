@@ -23,6 +23,16 @@ class CustomerController extends Controller
     {
         //
         $customerData = Customers::orderBy("id","desc")->paginate(10);
+        $customerData = Customers::with('CustomerPlots')
+                                    ->select('customers.*')
+                                    ->selectSub(function ($query) {
+                                        $query->selectRaw('sum(balance)')->from('customer_plots')
+                                            ->whereColumn('customer_id', 'customers.id')
+                                            ->where('customer_plots.plot_owner', '1');
+                                    }, 'total_balance')
+                                    ->paginate(10);
+        // dd($customerData);
+
         return view('adminPanel.members.customerList',compact('customerData'));
     }
 
@@ -53,6 +63,7 @@ class CustomerController extends Controller
     public function fetch_customer_plots($customer_id){
         $customer_plots = CustomerPlots::join('plots','plots.id','=','customer_plots.plot_id')
         ->where('customer_plots.customer_id',$customer_id)
+        ->where('customer_plots.plot_owner','1')
         ->select('customer_plots.*','customer_plots.id as plot_balance_id','plots.plot_no')
         ->get();
 
@@ -60,6 +71,18 @@ class CustomerController extends Controller
             'status' => 'success',
             'data' => $customer_plots
         ]);
+    }
+
+    public function customerPlotsledger($plot_bal_id){
+        $customer_plots_ledger = Customerledger::join('customers', 'customers.id', '=', 'customerledgers.customer_id')
+                                    ->join('plots','plots.id','=','customerledgers.plot_id')
+                                    ->where('customerledgers.plot_balance_id',$plot_bal_id)
+                                    ->select('customers.id as customer_id','customers.custfname','customers.custlname','customers.CNIC',
+                                            'customerledgers.*','plots.plot_no')
+                                    ->orderBy('customerledgers.id','asc')
+                                    ->paginate(500);
+        return view('adminPanel.members.customerLedeger',compact('customer_plots_ledger'));
+        
     }
 
     /**

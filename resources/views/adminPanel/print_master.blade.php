@@ -1,3 +1,4 @@
+
 @include('adminPanel/includes/print_header')
 
 @yield('content')

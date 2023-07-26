@@ -11,4 +11,9 @@ class CustomerPlots extends Model
 
     protected $table = 'customer_plots';
     protected $filables = ['balance','plot_owner'];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
 }

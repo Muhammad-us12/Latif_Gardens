@@ -186,7 +186,8 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/fetch_customer_plots/{id}', [CustomerController::class,'fetch_customer_plots']);
     Route::get('/customer-ledeger/{id}', [CustomerController::class,'customerLedeger']);
     Route::get('/customer-plots/{id}', [CustomerController::class,'customerPlots']);
-
+    Route::get('/customer-plot-ledeger/{id}', [CustomerController::class,'customerPlotsledger']);
+    
     
     
 

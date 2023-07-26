@@ -84,7 +84,7 @@
                                                         </td>
                                                         
                                                         <td>
-                                                            {{ number_format($cust_res->balance) }}
+                                                            {{ number_format($cust_res->total_balance) }}
                                                         </td>
                                                         <td>
                                                                 @php

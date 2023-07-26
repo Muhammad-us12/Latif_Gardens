@@ -1,4 +1,13 @@
 
+
+<?php 
+                                    
+     $agent_data = Auth::user()->img;
+
+                        
+   
+                        
+?>
 <!DOCTYPE html>
 <html>
 <head>
