@@ -113,6 +113,20 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/date-wise-profit-report', [AccountsController::class,'date_wise_profit_report']);
     Route::post('/date-wise-profit-report', [AccountsController::class,'date_wise_profit_report_sub']);
 
+    // Payments 
+    Route::get('/payments-list', [PaymentsController::class,'index']);
+    Route::get('/payments-add', [PaymentsController::class,'create']);
+    Route::post('/payments-sub', [PaymentsController::class,'store']);
+    Route::get('/payment-list-print/{id}', [PaymentsController::class,'payment_list_print']);
+
+
+
+    // Received Payments 
+    Route::get('/received-list', [ReceivedController::class,'index']);
+    Route::get('/received-add', [ReceivedController::class,'create']);
+    Route::post('/received-sub', [ReceivedController::class,'store']);
+    Route::get('/receive-list-print/{id}', [ReceivedController::class,'payment_list_print']);
+
     // Expense 
     Route::get('/add-expense', [ExpenseController::class,'create']);
     Route::get('/expense-list', [ExpenseController::class,'index']);
@@ -155,6 +169,11 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/add-plot', [PlotController::class,'create']);
     Route::post('/plots-submit', [PlotController::class,'store']);
 
+    Route::get('/sale-plot', [PlotController::class,'sale_plot']);
+    Route::post('/fetch_plots_wi_block', [PlotController::class,'fetch_plots_wi_block']);
+    Route::post('/plot-sale-submit', [PlotController::class,'plot_sale_submit']);
+    
+    
     // Customers
     Route::get('/add-customer', [CustomerController::class,'create']);
     Route::get('/customers-list', [CustomerController::class,'index']);
@@ -164,7 +183,11 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/customer-update/{id}', [CustomerController::class,'update']);
     Route::get('/fetch_customer_list', [CustomerController::class,'fetch_customer_list']);
     Route::get('/fetch_customer_bal/{id}', [CustomerController::class,'fetch_customer_bal']);
+    Route::get('/fetch_customer_plots/{id}', [CustomerController::class,'fetch_customer_plots']);
     Route::get('/customer-ledeger/{id}', [CustomerController::class,'customerLedeger']);
+    Route::get('/customer-plots/{id}', [CustomerController::class,'customerPlots']);
+
+    
     
 
 });

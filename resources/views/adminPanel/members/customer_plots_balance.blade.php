@@ -1,5 +1,5 @@
 
-         @extends('adminPanel/master')   
+@extends('adminPanel/master')   
          @section('style')
             <link href="{{ asset('public/adminPanel/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
          @endsection
@@ -14,7 +14,7 @@
                                     <div class="page-title-right">
                                         
                                     </div>
-                                    <h4 class="page-title">Customers</h4>
+                                    <h4 class="page-title">Customer Plots</h4>
                                 </div>
                             </div>
                         </div>
@@ -56,65 +56,42 @@
                                             <table id="scroll-horizontal-datatable" class="table table-centered w-100 nowrap">
                                                 <thead class="table-light">
                                                     <tr>
-                                                        <th>ID</th>
-                                                        <th>Picture</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
+                                                        <th>SR</th>
+                                                        <th>Customer ID</th>
+                                                        <th>Customer Name</th>
+                                                        <th>Plot No#</th>
+                                                        <th>Total Price</th>
                                                         <th>Balance</th>
-                                                        <th>Type</th>
                                                         <th style="width: 85px;">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                @isset($customerData)
-                                                        @foreach($customerData as $cust_res)
+                                                @isset($customer_plots)
+                                                        @foreach($customer_plots as $cust_res)
                                                     <tr>
                                                         <td>
-                                                            {{ $cust_res->id }}
+                                                            {{ $loop->iteration }}
                                                         </td>
                                                         <td>
-                                                            <img src="public/images/persons/{{ $cust_res->picture }}" style="width:100px; height:100px" alt="contact-img" title="contact-img" class="rounded me-3" height="48" />                                                           
-                                                        </td>
-                                                       
-                                                        <td>
-                                                        {{ $cust_res->custfname." ".$cust_res->custlname }}
+                                                            {{ $cust_res->customer_id }}
                                                         </td>
                                                         <td>
-                                                            {{ $cust_res->email }}
+                                                            {{ $cust_res->custfname." ".$cust_res->custlname }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $cust_res->plot_no }}
                                                         </td>
                                                         
+                                                        <td>
+                                                            {{ number_format($cust_res->total_plot_price) }}
+                                                        </td>
                                                         <td>
                                                             {{ number_format($cust_res->balance) }}
                                                         </td>
-                                                        <td>
-                                                                @php
-                                                                     if($cust_res->customer_type !== 'Customer'){
-                                                                        $isActive = false;
-                                                                     }else{
-                                                                        $isActive = true;
-                                                                     }
-                                                                
-                                                                @endphp
-                                                                <span @class([
-                                                                        'badge',
-                                                                        'bg-success' => $isActive,
-                                                                        'bg-info' => ! $isActive,
-                                                                    ])>{{ $cust_res->customer_type  }}
-                                                                </span>
-
-                                                        </td>
+                                                        
                                                         <td class="table-action">
                                                         
-                                                            <a href="{{ URL::to('customer-ledeger/'.$cust_res->id.'') }}" class="btn btn-success text-white action-icon"> <i class="mdi mdi-eye"></i></a>
-                                                            <a href="{{ URL::to('customer-plots/'.$cust_res->id.'') }}" class="btn btn-info text-white btn-sm action-icon"> <i class="mdi mdi-eye"></i></a>
-                                                             <?php 
-                                                                        $user_role = \Auth::user()->role;
-                                                                        if($user_role == 'admin'){
-                                                                    ?>
-                                                                        <a href="{{ URL::to('customer-update/'.$cust_res->id.'') }}" class="action-icon text-success"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                                    <?php 
-                                                                        }
-                                                                    ?>
+                                                            <a href="{{ URL::to('customer-plot-ledeger/'.$cust_res->id.'') }}" class="btn btn-success text-white action-icon"> <i class="mdi mdi-eye"></i></a>
                                                             
                                                         </td>
                                                     </tr>
@@ -124,7 +101,6 @@
 
                                                 </tbody>
                                             </table>
-                                            {!! $customerData->links() !!}
                                         </div>
                                     </div> <!-- end card-body-->
                                 </div> <!-- end card-->

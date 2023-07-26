@@ -175,6 +175,9 @@
                                     </li>
                                     <li>
                                         <a href="{{ URL::to('add-plot') }}">Plot Add</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('sale-plot') }}">Sale Plot</a>
                                     </li>   
                                 </ul>
                             </div>
@@ -210,6 +213,42 @@
                                     </li>
                                     <li>
                                         <a href="{{ URL::to('cash-deposit') }}">Cash Deposit</a>
+                                    </li>  
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#payNav" aria-expanded="false" aria-controls="payNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Payments </span>
+                            </a>
+                            <div class="collapse" id="payNav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('payments-list') }}">Payments List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('payments-add') }}">Payment Add</a>
+                                    </li>  
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#recvNav" aria-expanded="false" aria-controls="recvNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Received Payments </span>
+                            </a>
+                            <div class="collapse" id="recvNav">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{{ URL::to('received-list') }}">Received List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('received-add') }}">Received Add</a>
                                     </li>  
                                 </ul>
                             </div>

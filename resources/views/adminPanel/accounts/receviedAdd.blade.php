@@ -37,7 +37,7 @@
                 
                                         <div class="row">
                                             <div class="col-md-12">
-                                            <form action="{{ URL::to('received-sub') }}" id="payment_from" method="post" data-select2-id="6">
+                                            <form action="{{ URL::to('received-sub') }}" id="payment_from_sub" method="post" data-select2-id="6">
                                                 @csrf
                                                 <div class="mt-3" data-select2-id="5">
                                                     <div class="row">
@@ -83,10 +83,17 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-md-2 mt-2" id="">
-                                                        <label for="" id="label_name">Select Content:</label>
-                                                        <select name="sel_content" id="sel_content" data-toggle="select2" class="form-control select2">
+                                                            <label for="" id="label_name">Select Content:</label>
+                                                            <select name="sel_content" id="sel_content" data-toggle="select2" class="form-control select2">
 
-                                                        </select>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-2 mt-2 plot_colum" style="display:none;" id="">
+                                                            <label for="" id="label_name">Select PLot</label>
+                                                            <select name="sel_content" id="customer_plots" onchange="fetchCustomerPlotBalance()" data-toggle="select2" class="form-control select2">
+
+                                                            </select>
                                                         </div>
                                                         
                                                         
@@ -111,6 +118,7 @@
                                                                         <th>Received From</th>
                                                                         <th>Payments Person</th>
                                                                         <th>Amount</th>
+                                                                        <th>Plot No#</th>
                                                                         <th>Remarks</th>
                                                                         <th style="width: 85px;">Action</th>
                                                                     </tr>
@@ -172,7 +180,7 @@
                     console.log('Form is submit now ');
                     if(submit_form){
                         submit_form = false;
-                        $('#payment_from').submit();
+                        $('#payment_from_sub').submit();
                     }
                     
                 }
@@ -223,6 +231,44 @@
                     });
                 }
 
+                var customerPlots
+
+                fetchCustomerPlots = ()=>{
+                    var customerData = $('#sel_content').val();
+                    customerData = JSON.parse(customerData);
+                    console.log(customerData);
+                    $.ajax({
+                        url:"fetch_customer_plots/"+customerData['id'],
+                        type:'GET',
+                        data:{ },
+                        success:function(data) {
+                            customerPlots = data['data'];
+                            // $('#seelcted_content_bal').val(data);
+                            // $('#account_balance').val(data);
+                            console.log(data);
+                            let plotHtml = ``;
+                            data['data'].forEach((plot)=>{
+                                plotHtml += `<option value="${plot['id']}" plot_no="${plot['plot_no']}">${plot['plot_no']}</option>`
+                                
+                            });
+
+                            $('#customer_plots').html(plotHtml);
+                            fetchCustomerPlotBalance();
+                        }
+                    });
+                }
+
+                fetchCustomerPlotBalance = ()=>{
+                    var plot_id = $('#customer_plots').val();
+
+                    customerPlots.forEach((plot)=>{
+                        if(plot_id == plot['id']){
+                            $('#seelcted_content_bal').val(plot['balance'])
+                        }
+                    });
+                    console.log(customerPlots);
+                }
+
                 fetchCashAccBalance = ()=>{
                     var accountData = $('#sel_content').val();
                         accountData = JSON.parse(accountData);
@@ -246,19 +292,10 @@
 
                 fetchAgentBalance = ()=>{
                     var agentData = $('#sel_content').val();
-                    agentData = JSON.parse(agentData);
-                    console.log(agentData);
-                    $.ajax({
-                        url:"fetch_agent_bal/"+agentData['id'],
-                        type:'GET',
-                        data:{ },
-                        success:function(data) {
-                            $('#seelcted_content_bal').val(data);
-                            // $('#account_balance').val(data);
-                            console.log(data);
-                            
-                        }
-                    });
+
+                    var agentBal = $('#sel_content').find('option:selected').attr('agent_balance');
+                    $('#seelcted_content_bal').val(agentBal);
+                 
                 }
 
                 select_data = ()=>{
@@ -270,6 +307,10 @@
 
                     if(selectedContent == 'customer'){
                         fetchCustomerLists();
+                        $('.plot_colum').css('display','block');
+                    }else{
+                        $('.plot_colum').css('display','none');
+                        $('#customer_plots').html('');
                     }
 
                     if(selectedContent == 'account'){
@@ -286,7 +327,8 @@
                     }
 
                     if(selectedContent == 'customer'){
-                        fetchCustomerBalance();
+                        fetchCustomerPlots();
+                        // fetchCustomerBalance();
                     }
 
                     if(selectedContent == 'account'){
@@ -301,6 +343,10 @@
                         var payValue = $('#pay_amount').val();
                         if(payValue > 0){
                             var selectedContent = $('#sel_content').val();
+                            var customer_plot = $('#customer_plots').val();
+                            var plot_no = $('#customer_plots').find('option:selected').attr('plot_no');
+                            console.log(plot_no);
+                            
                             selectedContent = JSON.parse(selectedContent);
 
                             var contentId = selectedContent['id'];
@@ -311,6 +357,14 @@
                             }
 
                             if(selectedCrit == 'customer'){
+                                console.log('customer plort'+customer_plot);
+
+                                if(customer_plot == '' || customer_plot == null){
+                                    $('#alert_data').html('Please Select Plot');
+                                    $('#error-alert-modal').modal('show');
+                                    return "";
+                                }
+                               
                                 var contentName = selectedContent['custfname']+" "+selectedContent['custlname'];
                                 var contentPerson = 'Customer';
                             }
@@ -322,13 +376,16 @@
 
                             
 
-
+                            if(customer_plot == undefined){
+                                plot_no = '';
+                            }
 
                             console.log(selectedContent);
                             var tableTrHtml = `<tr id="${trId}">
                                                     <td><input type="text" class="form-control" name="criteria[]" readonly="" value="${contentPerson}"></td>
                                                     <td><input type="text" class="form-control" name="content[]" readonly="" value="${contentName}"><input type="text" name="content_ids[]" hidden="" value="${contentId}"></td>
                                                     <td><input type="text" class="form-control enter_payment_inp" name="amount[]" required="" value="${payValue}"></td>
+                                                    <td><input type="text" class="form-control" name="plot_ids[]" required="" hidden value="${customer_plot}">${plot_no}</td>
                                                     <td><input type="text" class="form-control" name="remarks[]"  value=""></td>
                                                     <td><button type="button" onclick="delete_row(${trId})" class="btn btn-sm btn-danger">X</button></td>
                                                 </tr>`;
@@ -398,7 +455,8 @@
                             });
 
                             $('#sel_content').html(customerHtml);
-                            fetchCustomerBalance();
+                            fetchCustomerPlots();
+                            // fetchCustomerBalance();
                         }
                     });
                 }
@@ -413,7 +471,7 @@
                             let agentHtml = ``;
                             data.forEach((agent)=>{
                                 var agentObj = JSON.stringify(agent);
-                                agentHtml += `<option value='${agentObj}'>${agent['fname']} ${agent['lname']}</option>`
+                                agentHtml += `<option value='${agentObj}' agent_balance="${agent['balance']}">${agent['fname']} ${agent['lname']}</option>`
                                 
                             });
 

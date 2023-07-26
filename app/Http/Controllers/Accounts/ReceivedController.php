@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Accounts\CashAccounts;
 use App\Models\Accounts\ReceviedPayments;
 
-use App\Models\persons\CustomerBalance;
+use App\Models\persons\CustomerPlots;
 use App\Models\persons\Customerledger;
 use App\Models\persons\AgentBalance;
+use App\Models\persons\Agent;
+
 use App\Models\persons\AgentLedeger;
 use App\Models\Accounts\CashAccountsBal;
 use App\Models\Accounts\CashAccountledger;
@@ -71,6 +73,8 @@ class ReceivedController extends Controller
     public function store(Request $request)
     {
         //
+        // print_r($request->all());
+        // die;
 
         DB::beginTransaction();
         try {
@@ -83,6 +87,7 @@ class ReceivedController extends Controller
             $paymentObj->Criteria = json_encode($request->criteria);
             $paymentObj->Content = json_encode($request->content);
             $paymentObj->Content_Ids = json_encode($request->content_ids);
+            $paymentObj->plots_balance_ids = json_encode($request->plot_ids);
             $paymentObj->Amount = json_encode($request->amount);
             $paymentObj->remarks = json_encode($request->remarks);
             $paymentObj->received_from = $request->payment_from;
@@ -92,7 +97,7 @@ class ReceivedController extends Controller
             foreach($request->criteria as $index => $ctr_res){
                 if($ctr_res == 'Agent'){
                     
-                    $AgentBal = AgentBalance::where('agent_id',$request->content_ids[$index])->first();
+                    $AgentBal = Agent::find($request->content_ids[$index])->first();
                     $updatedBalance = $AgentBal->balance + $request->amount[$index];
                     $AgentBal->balance = $updatedBalance;
                     $AgentBal->save();
@@ -128,7 +133,7 @@ class ReceivedController extends Controller
 
                 if($ctr_res == 'Customer'){
                     // Update Custoemr Balance 
-                        $CustomerBal = CustomerBalance::where('customer_id',$request->content_ids[$index])->first();
+                        $CustomerBal = CustomerPlots::find($request->plot_ids[$index])->first();
                         $custUpdatedBalance = $CustomerBal->balance -  $request->amount[$index];
                         $CustomerBal->balance = $custUpdatedBalance;
                         $CustomerBal->save();
@@ -137,7 +142,10 @@ class ReceivedController extends Controller
                     $CustomerledgerObj->payment = $request->amount[$index];
                     $CustomerledgerObj->customer_id = $request->content_ids[$index];
                     $CustomerledgerObj->balance = $custUpdatedBalance;
+                    $CustomerledgerObj->plot_balance = $custUpdatedBalance;
                     $CustomerledgerObj->recevied_id = $paymentObj->id;
+                    $CustomerledgerObj->plot_balance_id = $request->plot_ids[$index];
+                    $CustomerledgerObj->plot_id = $CustomerBal->plot_id;
                     $CustomerledgerObj->user_id = Auth::user()->id;
                     $CustomerledgerObj->save();
                 }

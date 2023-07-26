@@ -113,7 +113,7 @@
                                                                         $not_sale = true;
                                                                      }
 
-                                                                     if($plot_res->status == 'Sale'){
+                                                                     if($plot_res->status == 'Sale Progress'){
                                                                         $sale = true;
                                                                      }
                                                                 

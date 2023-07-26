@@ -20,6 +20,8 @@ class CreateCustomerBalancesTable extends Migration
             $table->float('balance',15);
             $table->boolean('plot_owner')->default(1);
             $table->integer('customer_id');
+            $table->integer('plot_sale_id');
+            $table->integer('plot_re_sale_id');
             $table->integer('user_id');
             $table->timestamps();
         });

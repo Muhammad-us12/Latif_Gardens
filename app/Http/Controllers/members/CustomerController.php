@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\persons\Customers;
 use App\Models\persons\CustomerBalance;
 use App\Models\persons\Customerledger;
+use App\Models\persons\CustomerPlots;
+
 use Auth;
 use DB;
 
@@ -35,6 +37,29 @@ class CustomerController extends Controller
        $customerBalance = CustomerBalance::where('customer_id',$id)->first();
        return $customerBalance->balance;
     //    print_r($accountBalance);
+    }
+
+    public function customerPlots($customer_id){
+        $customer_plots = CustomerPlots::join('customers', 'customers.id', '=', 'customer_plots.customer_id')
+                                    ->join('plots','plots.id','=','customer_plots.plot_id')
+                                    ->where('customer_plots.customer_id',$customer_id)
+                                    ->select('customers.id as customer_id','customers.custfname','customers.custlname',
+                                            'customer_plots.*','customer_plots.id as plot_balance_id','customers.custfname','customers.custlname','plots.plot_no')
+                                    ->get();
+        return view('adminPanel.members.customer_plots_balance',compact('customer_plots'));
+        
+    }
+
+    public function fetch_customer_plots($customer_id){
+        $customer_plots = CustomerPlots::join('plots','plots.id','=','customer_plots.plot_id')
+        ->where('customer_plots.customer_id',$customer_id)
+        ->select('customer_plots.*','customer_plots.id as plot_balance_id','plots.plot_no')
+        ->get();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $customer_plots
+        ]);
     }
 
     /**
