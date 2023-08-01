@@ -16,7 +16,10 @@ use App\Http\Controllers\Accounts\ExpenseController;
 use App\Http\Controllers\location\LocationsController;
 use App\Http\Controllers\location\SocietyController;
 use App\Http\Controllers\location\BlockController;
+use App\Http\Controllers\website\BlogsController;
 use App\Http\Controllers\location\PlotController;
+
+use App\Http\Controllers\WebsiteController;
 
 
 
@@ -31,9 +34,14 @@ use App\Http\Controllers\location\PlotController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [WebsiteController::class,'index']);
+Route::get('/blogs_list', [WebsiteController::class,'blogs_list']);
+Route::get('/category-blogs/{id}', [WebsiteController::class,'category_blogs']);
+Route::get('/blog-details/{id}', [WebsiteController::class,'blog_details']);
+
+Route::get('/contact_us', [WebsiteController::class,'contact_us']);
+Route::get('/about_us', [WebsiteController::class,'about_us']);
 
 Route::get('/agent-login', [AgentController::class,'agent_login']);
 
@@ -188,7 +196,17 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/customer-plots/{id}', [CustomerController::class,'customerPlots']);
     Route::get('/customer-plot-ledeger/{id}', [CustomerController::class,'customerPlotsledger']);
     
-    
+    // Blogs
+    Route::get('/blogs-list', [BlogsController::class,'index']);
+    Route::get('/blogs-add', [BlogsController::class,'create']);
+    Route::get('/blogs-update/{id}', [BlogsController::class,'edit']);
+    Route::post('/blogs-update/{id}', [BlogsController::class,'update']);
+    Route::post('/blogs-submit', [BlogsController::class,'store']);
+    Route::get('/blogs-categories', [BlogsController::class,'blogs_categories']);
+    Route::get('/category-data/{id}', [BlogsController::class,'getCategories']);
+    Route::post('/blog-cat-submit', [BlogsController::class,'storeCategory']);
+    Route::post('/blog-cat-update', [BlogsController::class,'updateCategory']);
+    Route::post('/update_blog_status', [BlogsController::class,'update_blog_status']);
     
 
 });

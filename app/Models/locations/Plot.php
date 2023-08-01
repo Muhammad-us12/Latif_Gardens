@@ -9,6 +9,8 @@ class Plot extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['status'];
+
     public function Plotlocation()
     {
         return $this->belongsTo(\App\Models\Location::class,'location_id');

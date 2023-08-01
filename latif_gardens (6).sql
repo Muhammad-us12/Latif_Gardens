@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2023 at 09:07 AM
+-- Generation Time: Aug 01, 2023 at 09:32 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -53,7 +53,7 @@ CREATE TABLE `agents` (
 --
 
 INSERT INTO `agents` (`id`, `fname`, `lname`, `opening_bal`, `balance`, `email`, `password`, `picture`, `country`, `city`, `phone`, `address`, `display_on_web`, `user_id`, `status`, `client_assigns`, `created_at`, `updated_at`) VALUES
-(1, 'Khashif', 'Ali', 4000.00, 10000.00, 'kashif@gmail.com', '$2y$10$nLff.4k1e9J8rhmqvmmj6e3Fd0QGWzXpf8FWFR4JTmy6H5OSGEqE6', '1768896626127684.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:34:40', '2023-07-26 06:56:58'),
+(1, 'Khashif', 'Ali', 4000.00, 5000.00, 'kashif@gmail.com', '$2y$10$nLff.4k1e9J8rhmqvmmj6e3Fd0QGWzXpf8FWFR4JTmy6H5OSGEqE6', '1768896626127684.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:34:40', '2023-07-26 21:38:49'),
 (2, 'Aslam', 'Chohan', 5000.00, 5000.00, 'aslam@gmail.com', '$2y$10$lSsquNrpVjCTrkbPTZluCOzqlbm8Sl4.lcT2WuTlIrhPWtJz5oJVq', '1768896822548539.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:37:48', '2023-06-28 11:33:23'),
 (3, 'Muhammad', 'Ali', 20000.00, 20000.00, 'ali@gmail.com', '$2y$10$w0BNDulJZMvCBEndjQ4PL.zPxAMDJ/vo0i/S9Xpk9KwAZ/xm.1mtW', '1769976804314240.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Test Addresst', '1', 1, 'active', 0, '2023-06-28 19:43:38', '2023-06-28 19:43:38');
 
@@ -84,7 +84,8 @@ CREATE TABLE `agent_ledegers` (
 --
 
 INSERT INTO `agent_ledegers` (`id`, `payment`, `received`, `commission`, `balance`, `payment_id`, `recevied_id`, `file_id`, `property_id`, `agent_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, '6000', NULL, NULL, '10000', NULL, 4, NULL, NULL, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58');
+(2, '6000', NULL, NULL, '10000', NULL, 4, NULL, NULL, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
+(3, NULL, '5000', NULL, '5000', 2, NULL, NULL, NULL, 1, 1, '2023-07-26 21:38:49', '2023-07-26 21:38:49');
 
 -- --------------------------------------------------------
 
@@ -109,6 +110,55 @@ INSERT INTO `blocks` (`id`, `block_name`, `scoiety`, `user_id`, `created_at`, `u
 (1, 'A Block', 1, 1, '2023-07-22 01:56:58', '2023-07-22 01:56:58'),
 (2, 'B block', 1, 1, '2023-07-22 01:57:13', '2023-07-22 01:57:13'),
 (3, 'C Block', 1, 1, '2023-07-22 01:57:35', '2023-07-22 01:57:35');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `picture` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `description` longtext NOT NULL,
+  `short_description` text NOT NULL,
+  `blog_category` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `blogs`
+--
+
+INSERT INTO `blogs` (`id`, `title`, `picture`, `status`, `description`, `short_description`, `blog_category`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'First Blogs update', '1773009900324967.png', 'publish', '<p><span style=\"color: rgb(77, 81, 86); font-family: arial, sans-serif; font-size: 14px;\">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.&nbsp;</span><span style=\"color: rgb(77, 81, 86); font-family: arial, sans-serif; font-size: 14px; background-color: var(--ct-card-bg); font-weight: var(--ct-body-font-weight); text-align: var(--ct-body-text-align);\">In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</span><span style=\"color: rgb(77, 81, 86); font-family: arial, sans-serif; font-size: 14px; background-color: var(--ct-card-bg); font-weight: var(--ct-body-font-weight); text-align: var(--ct-body-text-align);\">&nbsp;</span><br></p>', 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.', 1, 1, '2023-06-07 23:09:45', '2023-08-01 07:13:24'),
+(2, 'Booking travel during Corona: good advice in an uncertain time', '1770213004442067.png', 'publish', '<h3 class=\"text-20 fw-500\" style=\"margin-top: 0px; margin-bottom: 0px; font-weight: 500; line-height: 1.45; color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: var(--text-20) !important;\">What makes a good brand book?</h3><div class=\"text-15 mt-20\" style=\"color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: var(--text-15) !important; margin-top: 20px !important;\">Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Diam phasellus vestibulum lorem sed risus ultricies. Magna sit amet purus gravida quis blandit. Arcu cursus vitae congue mauris. Nunc mattis enim ut tellus elementum sagittis vitae et leo. Semper risus in hendrerit gravida rutrum quisque non. At urna condimentum mattis pellentesque id nibh tortor. A erat nam at lectus urna duis convallis convallis tellus. Sit amet mauris commodo quis imperdiet massa. Vitae congue eu consequat ac felis.</div><ul class=\"list-disc text-15 mt-30\" style=\"padding: 0px; margin-bottom: 0px; list-style: none; margin-right: 0px; margin-left: 0px; color: rgb(5, 16, 54); font-family: Jost, sans-serif; margin-top: 30px !important; font-size: var(--text-15) !important;\"><li style=\"list-style: inside disc; margin: 0px; padding: 0px;\">Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida.</li><li style=\"list-style: inside disc; margin: 0px; padding: 0px;\">At urna condimentum mattis pellentesque id nibh. Laoreet non curabitur</li><li style=\"list-style: inside disc; margin: 0px; padding: 0px;\">Magna etiam tempor orci eu lobortis elementum.</li><li style=\"list-style: inside disc; margin: 0px; padding: 0px;\">Bibendum est ultricies integer quis. Semper eget duis at tellus.</li></ul><div class=\"quote mt-30 mb-30\" style=\"position: relative; padding: 20px 0px 20px 75px; width: 740px; max-width: 100%; color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: 16px; margin-top: 30px !important; margin-bottom: 30px !important;\"><div class=\"quote__line bg-blue-1\" style=\"width: 5px; height: 141.25px; position: absolute; left: 0px; top: 0px; background-color: var(--color-blue-1) !important;\"></div><div class=\"quote__icon\" style=\"position: absolute; top: 12px; left: 22px; z-index: -1;\"><img src=\"https://creativelayers.net/themes/gotrip-html/img/misc/quote-light.svg\" alt=\"icon\" style=\"max-width: 100%; height: auto;\"></div><div class=\"text-18 fw-500\" style=\"font-size: var(--text-18) !important;\">“Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Diam phasellus vestibulum lorem sed risus ultricies. Magna sit amet purus gravida quis blandit. Arcu cursus vitae congue mauris.“</div></div><div class=\"text-15 mt-20\" style=\"color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: var(--text-15) !important; margin-top: 20px !important;\">Donec purus posuere nullam lacus aliquam egestas arcu. A egestas a, tellus massa, ornare vulputate. Erat enim eget laoreet ullamcorper lectus aliquet nullam tempus id. Dignissim convallis quam aliquam rhoncus, lectus nullam viverra. Bibendum dignissim tortor, phasellus pellentesque commodo, turpis vel eu. Donec consectetur ipsum nibh lobortis elementum mus velit tincidunt elementum. Ridiculus eu convallis eu mattis iaculis et, in dolor. Sem libero, tortor suspendisse et, purus euismod posuere sit. Risus dui ut viverra venenatis ipsum tincidunt non, proin. Euismod pharetra sit ac nisi. Erat lacus, amet quisque urna faucibus. Rhoncus praesent faucibus rhoncus nec adipiscing tristique sed facilisis velit.<br><br>Neque nulla porta ut urna rutrum. Aliquam cursus arcu tincidunt mus dictum sit euismod cum id. Dictum integer ultricies arcu fermentum fermentum sem consectetur. Consectetur eleifend aenean eu neque euismod amet parturient turpis vitae. Faucibus ipsum felis et duis fames.</div>', 'Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Diam phasellus vestibulum lorem sed risus ultricies. Magna sit amet purus gravida quis blandit. Arcu cursus vitae congue mauris. Nunc mattis enim ut tellus elementum sagittis vitae et leo.', 1, 1, '2023-07-01 05:17:56', '2023-07-01 05:25:32'),
+(3, 'The best times & places to see the Northern Lights in Iceland', '1770213098113975.png', 'publish', '<h3 class=\"text-20 fw-500\" style=\"margin-top: 0px; margin-bottom: 0px; font-weight: 500; line-height: 1.45; color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: var(--text-20) !important;\">What makes a good brand book?</h3><div class=\"text-15 mt-20\" style=\"color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: var(--text-15) !important; margin-top: 20px !important;\">Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Diam phasellus vestibulum lorem sed risus ultricies. Magna sit amet purus gravida quis blandit. Arcu cursus vitae congue mauris. Nunc mattis enim ut tellus elementum sagittis vitae et leo. Semper risus in hendrerit gravida rutrum quisque non. At urna condimentum mattis pellentesque id nibh tortor. A erat nam at lectus urna duis convallis convallis tellus. Sit amet mauris commodo quis imperdiet massa. Vitae congue eu consequat ac felis.</div><ul class=\"list-disc text-15 mt-30\" style=\"padding: 0px; margin-bottom: 0px; list-style: none; margin-right: 0px; margin-left: 0px; color: rgb(5, 16, 54); font-family: Jost, sans-serif; margin-top: 30px !important; font-size: var(--text-15) !important;\"><li style=\"list-style: inside disc; margin: 0px; padding: 0px;\">Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida.</li><li style=\"list-style: inside disc; margin: 0px; padding: 0px;\">At urna condimentum mattis pellentesque id nibh. Laoreet non curabitur</li><li style=\"list-style: inside disc; margin: 0px; padding: 0px;\">Magna etiam tempor orci eu lobortis elementum.</li><li style=\"list-style: inside disc; margin: 0px; padding: 0px;\">Bibendum est ultricies integer quis. Semper eget duis at tellus.</li></ul><div class=\"quote mt-30 mb-30\" style=\"position: relative; padding: 20px 0px 20px 75px; width: 740px; max-width: 100%; color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: 16px; margin-top: 30px !important; margin-bottom: 30px !important;\"><div class=\"quote__line bg-blue-1\" style=\"width: 5px; height: 141.25px; position: absolute; left: 0px; top: 0px; background-color: var(--color-blue-1) !important;\"></div><div class=\"quote__icon\" style=\"position: absolute; top: 12px; left: 22px; z-index: -1;\"><img src=\"https://creativelayers.net/themes/gotrip-html/img/misc/quote-light.svg\" alt=\"icon\" style=\"max-width: 100%; height: auto;\"></div><div class=\"text-18 fw-500\" style=\"font-size: var(--text-18) !important;\">“Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Diam phasellus vestibulum lorem sed risus ultricies. Magna sit amet purus gravida quis blandit. Arcu cursus vitae congue mauris.“</div></div><div class=\"text-15 mt-20\" style=\"color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: var(--text-15) !important; margin-top: 20px !important;\">Donec purus posuere nullam lacus aliquam egestas arcu. A egestas a, tellus massa, ornare vulputate. Erat enim eget laoreet ullamcorper lectus aliquet nullam tempus id. Dignissim convallis quam aliquam rhoncus, lectus nullam viverra. Bibendum dignissim tortor, phasellus pellentesque commodo, turpis vel eu. Donec consectetur ipsum nibh lobortis elementum mus velit tincidunt elementum. Ridiculus eu convallis eu mattis iaculis et, in dolor. Sem libero, tortor suspendisse et, purus euismod posuere sit. Risus dui ut viverra venenatis ipsum tincidunt non, proin. Euismod pharetra sit ac nisi. Erat lacus, amet quisque urna faucibus. Rhoncus praesent faucibus rhoncus nec adipiscing tristique sed facilisis velit.</div>', 'Donec purus posuere nullam lacus aliquam egestas arcu. A egestas a, tellus massa, ornare vulputate. Erat enim eget laoreet ullamcorper lectus aliquet nullam tempus id. Dignissim convallis quam aliquam rhoncus, lectus nullam viverra. Bibendum dignissim tortor, phasellus pellentesque commodo, turpis vel eu.', 1, 1, '2023-07-01 05:19:26', '2023-07-01 05:25:39'),
+(4, 'What makes a good brand book?', '1770213164495441.png', 'publish', '<p><span style=\"color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: 15px;\">Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Diam phasellus vestibulum lorem sed risus ultricies. Magna sit amet purus gravida quis blandit. Arcu cursus vitae congue mauris. Nunc mattis enim ut tellus elementum sagittis vitae et leo. Semper risus in hendrerit gravida rutrum quisque non. At urna condimentum mattis pellentesque id nibh tortor.&nbsp;</span></p><p><span style=\"color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: 15px;\">Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Diam phasellus vestibulum lorem sed risus ultricies. Magna sit amet purus gravida quis blandit. Arcu cursus vitae congue mauris. Nunc mattis enim ut tellus elementum sagittis vitae et leo. Semper risus in hendrerit gravida rutrum quisque non. At urna condimentum mattis pellentesque id nibh tortor.&nbsp;</span><span style=\"color: rgb(5, 16, 54); font-family: Jost, sans-serif; font-size: 15px;\"><br></span><br></p>', 'Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Diam phasellus vestibulum lorem sed risus ultricies. Magna sit amet purus gravida quis blandit. Arcu cursus vitae congue mauris. Nunc mattis enim ut tellus elementum sagittis vitae et leo. Semper risus in hendrerit gravida rutrum quisque non. At urna condimentum mattis pellentesque id nibh tortor.', 1, 1, '2023-07-01 05:20:29', '2023-07-01 05:25:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog_categories`
+--
+
+CREATE TABLE `blog_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `blog_categories`
+--
+
+INSERT INTO `blog_categories` (`id`, `category_name`, `created_at`, `updated_at`) VALUES
+(1, 'Tour Category', '2023-06-07 23:07:48', '2023-06-07 23:08:07');
 
 -- --------------------------------------------------------
 
@@ -142,7 +192,13 @@ INSERT INTO `cash_accountledgers` (`id`, `payment`, `received`, `balance`, `depo
 (1, NULL, '500', '5500', 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 'Test', '2023-06-23 07:12:22', '2023-06-23 07:12:22'),
 (2, '3000', NULL, '2500', NULL, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, '2023-06-23 07:13:10', '2023-06-23 07:13:10'),
 (6, '2500', NULL, '0', NULL, NULL, 4, NULL, NULL, NULL, 1, 1, NULL, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
-(7, NULL, '3008500', '3008500', NULL, NULL, 4, NULL, NULL, NULL, 1, 1, NULL, '2023-07-26 06:56:58', '2023-07-26 06:56:58');
+(7, NULL, '3008500', '3008500', NULL, NULL, 4, NULL, NULL, NULL, 1, 1, NULL, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
+(8, '1005000', NULL, '2003500', NULL, 2, NULL, NULL, NULL, NULL, 1, 1, NULL, '2023-07-26 21:38:49', '2023-07-26 21:38:49'),
+(9, '4000000', NULL, '-1996500', NULL, 3, NULL, NULL, NULL, NULL, 1, 1, NULL, '2023-07-30 20:27:34', '2023-07-30 20:27:34'),
+(10, NULL, '8000000', '6003500', NULL, NULL, 6, NULL, NULL, NULL, 1, 1, NULL, '2023-07-30 20:30:54', '2023-07-30 20:30:54'),
+(11, NULL, '3000000', '9003500', NULL, NULL, 7, NULL, NULL, NULL, 1, 1, NULL, '2023-07-30 20:36:24', '2023-07-30 20:36:24'),
+(12, NULL, '4000000', '13003500', NULL, NULL, 8, NULL, NULL, NULL, 1, 1, NULL, '2023-07-30 20:39:08', '2023-07-30 20:39:08'),
+(13, NULL, '7000000', '20003500', NULL, NULL, 9, NULL, NULL, NULL, 1, 1, NULL, '2023-08-01 07:18:20', '2023-08-01 07:18:20');
 
 -- --------------------------------------------------------
 
@@ -187,7 +243,7 @@ CREATE TABLE `cash_accounts_bals` (
 --
 
 INSERT INTO `cash_accounts_bals` (`id`, `balance`, `account_id`, `created_at`, `updated_at`) VALUES
-(1, 3008500.00, 1, '2023-06-23 07:09:10', '2023-07-26 06:56:58'),
+(1, 20003500.00, 1, '2023-06-23 07:09:10', '2023-08-01 07:18:20'),
 (2, 5000.00, 2, '2023-06-28 19:44:15', '2023-06-28 19:44:15');
 
 -- --------------------------------------------------------
@@ -614,7 +670,13 @@ CREATE TABLE `customerledgers` (
 INSERT INTO `customerledgers` (`id`, `payment`, `received`, `balance`, `plot_balance`, `payment_id`, `recevied_id`, `plot_id`, `plot_balance_id`, `customer_id`, `user_id`, `created_at`, `updated_at`) VALUES
 (2, NULL, 6000000.00, 6000000.00, 6000000.00, NULL, NULL, 1, 2, 1, 1, '2023-07-23 11:24:35', '2023-07-23 11:24:35'),
 (3, NULL, 7000000.00, 7000000.00, 7000000.00, NULL, NULL, 4, 3, 1, 1, '2023-07-25 05:45:20', '2023-07-25 05:45:20'),
-(4, 3000000.00, NULL, 3000000.00, 3000000.00, NULL, 4, 1, 2, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58');
+(4, 3000000.00, NULL, 3000000.00, 3000000.00, NULL, 4, 1, 2, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
+(5, NULL, 1000000.00, 4000000.00, 4000000.00, 2, NULL, 1, 2, 1, 1, '2023-07-26 21:38:49', '2023-07-26 21:38:49'),
+(6, NULL, 4000000.00, 8000000.00, 8000000.00, 3, NULL, 1, 2, 1, 1, '2023-07-30 20:27:33', '2023-07-30 20:27:33'),
+(7, 8000000.00, NULL, 0.00, 0.00, NULL, 6, 1, 2, 1, 1, '2023-07-30 20:30:54', '2023-07-30 20:30:54'),
+(8, 3000000.00, NULL, -3000000.00, -3000000.00, NULL, 7, 1, 3, 1, 1, '2023-07-30 20:36:24', '2023-07-30 20:36:24'),
+(9, 4000000.00, NULL, -7000000.00, -7000000.00, NULL, 8, 1, 3, 1, 1, '2023-07-30 20:39:08', '2023-07-30 20:39:08'),
+(10, 7000000.00, NULL, 0.00, 0.00, NULL, 9, 4, 3, 1, 1, '2023-08-01 07:18:20', '2023-08-01 07:18:20');
 
 -- --------------------------------------------------------
 
@@ -674,8 +736,8 @@ CREATE TABLE `customer_plots` (
 --
 
 INSERT INTO `customer_plots` (`id`, `plot_id`, `total_plot_price`, `balance`, `plot_owner`, `customer_id`, `plot_sale_id`, `plot_re_sale_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, 1, 6000000.00, 3000000.00, 1, 1, 2, NULL, 1, '2023-07-23 11:24:35', '2023-07-26 06:56:58'),
-(3, 4, 7000000.00, 7000000.00, 1, 1, 3, NULL, 1, '2023-07-25 05:45:20', '2023-07-25 05:45:20');
+(2, 1, 6000000.00, -7000000.00, 1, 1, 2, NULL, 1, '2023-07-23 11:24:35', '2023-07-30 20:39:08'),
+(3, 4, 7000000.00, 0.00, 1, 1, 3, NULL, 1, '2023-07-25 05:45:20', '2023-08-01 07:18:20');
 
 -- --------------------------------------------------------
 
@@ -938,6 +1000,7 @@ CREATE TABLE `payments` (
   `Criteria` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Criteria`)),
   `Content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Content`)),
   `Content_Ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Content_Ids`)),
+  `plots_balance_ids` text DEFAULT NULL,
   `Amount` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Amount`)),
   `remarks` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`remarks`)),
   `payment_from` bigint(20) UNSIGNED NOT NULL,
@@ -945,6 +1008,14 @@ CREATE TABLE `payments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `date`, `prev_balance`, `updated_balance`, `total_payments`, `Criteria`, `Content`, `Content_Ids`, `plots_balance_ids`, `Amount`, `remarks`, `payment_from`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, '2023-07-27', '3008500', '2003500', '1005000', '[\"Agent\",\"Customer\"]', '[\"Khashif Ali\",\"Muhammad Usama Asghar up\"]', '[\"1\",\"1\"]', '[\"null\",\"2\"]', '[\"5000\",\"1000000\"]', '[\"Agent Payment\",\"Customer Plot Payment Return\"]', 1, 1, '2023-07-26 21:38:49', '2023-07-26 21:38:49'),
+(3, '2023-07-31', '2003500', '-1996500', '4000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"2\"]', '[\"4000000\"]', '[\"Sale Complete\"]', 1, 1, '2023-07-30 20:27:33', '2023-07-30 20:27:33');
 
 -- --------------------------------------------------------
 
@@ -992,9 +1063,9 @@ CREATE TABLE `plots` (
 --
 
 INSERT INTO `plots` (`id`, `plot_no`, `location_id`, `society_id`, `block_id`, `marala_type`, `state_type`, `plot_cost_price`, `plot_sale_price`, `status`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'A1', 1, 1, 1, 1, 'Residentail', 4000000.00, 5000000.00, 'Sale Progress', '<p>This is Residentail</p>', NULL, '2023-07-23 11:24:35'),
+(1, 'A1', 1, 1, 1, 1, 'Residentail', 4000000.00, 5000000.00, 'Sale Complete', '<p>This is Residentail</p>', NULL, '2023-07-30 20:30:54'),
 (3, 'A2', 1, 1, 1, 2, 'Residentail', 5000000.00, 6000000.00, 'Not Sale', '<p>This is Residentail</p>', NULL, NULL),
-(4, 'B1', 1, 1, 2, 2, 'Commerical', 5000000.00, 6000000.00, 'Sale Progress', NULL, NULL, '2023-07-25 05:45:20');
+(4, 'B1', 1, 1, 2, 2, 'Commerical', 5000000.00, 6000000.00, 'Sale Complete', NULL, NULL, '2023-08-01 07:18:20');
 
 -- --------------------------------------------------------
 
@@ -1062,7 +1133,11 @@ CREATE TABLE `recevied_payments` (
 --
 
 INSERT INTO `recevied_payments` (`id`, `date`, `prev_balance`, `updated_balance`, `total_received`, `Criteria`, `Content`, `Content_Ids`, `plots_balance_ids`, `Amount`, `remarks`, `received_from`, `user_id`, `created_at`, `updated_at`) VALUES
-(4, '2023-07-26', '2500', '3011000', '3008500', '[\"Account\",\"Agent\",\"Customer\"]', '[\"Cash in Hand\",\"Khashif Ali\",\"Muhammad Usama Asghar up\"]', '[\"1\",\"1\",\"1\"]', '[\"null\",\"null\",\"2\"]', '[\"2500\",\"6000\",\"3000000\"]', '[\"Account Remarks\",\"Agent Remarks\",\"Customer Remarks\"]', 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58');
+(4, '2023-07-26', '2500', '3011000', '3008500', '[\"Account\",\"Agent\",\"Customer\"]', '[\"Cash in Hand\",\"Khashif Ali\",\"Muhammad Usama Asghar up\"]', '[\"1\",\"1\",\"1\"]', '[\"null\",\"null\",\"2\"]', '[\"2500\",\"6000\",\"3000000\"]', '[\"Account Remarks\",\"Agent Remarks\",\"Customer Remarks\"]', 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
+(6, '2023-07-31', '-1996500', '6003500', '8000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"2\"]', '[\"8000000\"]', '[\"Sale Completed\"]', 1, 1, '2023-07-30 20:30:54', '2023-07-30 20:30:54'),
+(7, '2023-07-31', '6003500', '9003500', '3000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"3\"]', '[\"3000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-07-30 20:36:24', '2023-07-30 20:36:24'),
+(8, '2023-07-31', '9003500', '13003500', '4000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"3\"]', '[\"4000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-07-30 20:39:08', '2023-07-30 20:39:08'),
+(9, '2023-08-01', '13003500', '20003500', '7000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"3\"]', '[\"7000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-08-01 07:18:19', '2023-08-01 07:18:19');
 
 -- --------------------------------------------------------
 
@@ -1138,6 +1213,19 @@ ALTER TABLE `agent_ledegers`
 ALTER TABLE `blocks`
   ADD PRIMARY KEY (`id`),
   ADD KEY `blocks_scoiety_foreign` (`scoiety`);
+
+--
+-- Indexes for table `blogs`
+--
+ALTER TABLE `blogs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `blogs_blog_category_foreign` (`blog_category`);
+
+--
+-- Indexes for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cash_accountledgers`
@@ -1345,7 +1433,7 @@ ALTER TABLE `agents`
 -- AUTO_INCREMENT for table `agent_ledegers`
 --
 ALTER TABLE `agent_ledegers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `blocks`
@@ -1354,10 +1442,22 @@ ALTER TABLE `blocks`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `blogs`
+--
+ALTER TABLE `blogs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `blog_categories`
+--
+ALTER TABLE `blog_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `cash_accountledgers`
 --
 ALTER TABLE `cash_accountledgers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `cash_accounts`
@@ -1405,7 +1505,7 @@ ALTER TABLE `curren_follow_ups`
 -- AUTO_INCREMENT for table `customerledgers`
 --
 ALTER TABLE `customerledgers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -1483,7 +1583,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1507,7 +1607,7 @@ ALTER TABLE `plot_sales`
 -- AUTO_INCREMENT for table `recevied_payments`
 --
 ALTER TABLE `recevied_payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `societies`
@@ -1536,6 +1636,12 @@ ALTER TABLE `agent_ledegers`
 --
 ALTER TABLE `blocks`
   ADD CONSTRAINT `blocks_scoiety_foreign` FOREIGN KEY (`scoiety`) REFERENCES `societies` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `blogs`
+--
+ALTER TABLE `blogs`
+  ADD CONSTRAINT `blogs_blog_category_foreign` FOREIGN KEY (`blog_category`) REFERENCES `blog_categories` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `cash_accountledgers`

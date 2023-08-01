@@ -109,7 +109,7 @@ class PaymentsController extends Controller
             foreach($request->criteria as $index => $ctr_res){
                 if($ctr_res == 'Agent'){
                     
-                    $AgentBal = Agent::find($request->content_ids[$index])->first();
+                    $AgentBal = Agent::find($request->content_ids[$index]);
                     $updatedBalance = $AgentBal->balance - $request->amount[$index];
                     $AgentBal->balance = $updatedBalance;
                     $AgentBal->save();
@@ -145,7 +145,7 @@ class PaymentsController extends Controller
 
                 if($ctr_res == 'Customer'){
                     // Update Custoemr Balance 
-                        $CustomerBal = CustomerPlots::find($request->plot_ids[$index])->first();
+                        $CustomerBal = CustomerPlots::find($request->plot_ids[$index]);
                         $custUpdatedBalance = $CustomerBal->balance +  $request->amount[$index];
                         $CustomerBal->balance = $custUpdatedBalance;
                         $CustomerBal->save();

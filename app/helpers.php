@@ -38,6 +38,16 @@ class Helper {
         // die;
         return $plot_data;
     }
+
+    public static function get_plot_balance($id){
+        
+        $plot_data = CustomerPlots::where('plot_id',$id)
+                                    ->where('plot_owner',1)
+                                    ->select('total_plot_price','balance')
+                                    ->first();
+       
+        return $plot_data;
+    }
     
     public static function get_sub_category_name($id=0){
         $category = FollowUpSubCategory::find($id);

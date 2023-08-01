@@ -1,4 +1,8 @@
 
+<?php 
+    use App\Helpers\Helper;
+?>
+
 @extends('adminPanel/master')   
          @section('style')
             <link href="{{ asset('public/adminPanel/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
@@ -76,7 +80,9 @@
                                                         <th>Marla</th>
                                                         <th>Status</th>
                                                         <th>Cost Price</th>
+                                                        <th>Demand Price</th>
                                                         <th>Sale Price</th>
+                                                        <th>Balance</th>
                                                         <th>State Type</th>
                                                         
                                                     </tr>
@@ -84,7 +90,10 @@
                                                 <tbody>
                                                 @isset($all_plosts)
                                                     @foreach($all_plosts as $plot_res)
-                                                           
+                                                           <?php 
+                                                                $plot_bal_data = Helper::get_plot_balance($plot_res->id);
+
+                                                           ?>
                                                         <tr>
                                                             <td>
                                                                  {{ $plot_res->id }}
@@ -109,18 +118,26 @@
                                                                 @php
                                                                     $not_sale = false;
                                                                     $sale = false;
+                                                                    $sale_progress = false;
                                                                      if($plot_res->status == 'Not Sale'){
                                                                         $not_sale = true;
                                                                      }
 
                                                                      if($plot_res->status == 'Sale Progress'){
+                                                                        $sale_progress = true;
+                                                                     }
+
+                                                                     if($plot_res->status == 'Sale Complete'){
                                                                         $sale = true;
                                                                      }
+
+                                                                     
                                                                 
                                                                 @endphp
                                                                     <span @class([
                                                                         'badge',
                                                                         'bg-success' => $sale,
+                                                                        'bg-info' => $sale_progress,
                                                                         'bg-danger' => $not_sale,
                                                                     ])>{{ $plot_res->status  }}</span> 
                                                             </td>
@@ -130,6 +147,17 @@
                                                             <td>
                                                                 {{ number_format($plot_res->plot_sale_price) }}
                                                             </td>
+                                                            <td>
+                                                                @isset($plot_bal_data->total_plot_price)
+                                                                    {{ number_format($plot_bal_data->total_plot_price) }}
+                                                                @endisset
+                                                            </td>
+                                                            <td>
+                                                                @isset($plot_bal_data->total_plot_price)
+                                                                    {{ number_format($plot_bal_data->balance) }}
+                                                                @endisset
+                                                            </td>
+                                                            
                                                             <td>
                                                                 {{ $plot_res->state_type }}
                                                             </td>
