@@ -1,4 +1,6 @@
-
+<?php 
+     use App\Helpers\Helper;                     
+?>
          @extends('adminPanel/master')   
          @section('style')
             <link href="{{ asset('public/adminPanel/assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />

@@ -1,3 +1,6 @@
+<?php 
+     use App\Helpers\Helper;                     
+?>
 @extends('adminPanel/print_master')   
     @section('content')
     <h3 style="margin-top:40px;">Sub Category wise expanse report</h3>

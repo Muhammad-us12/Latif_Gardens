@@ -207,6 +207,34 @@ Route::middleware('auth:web')->group(function () {
     Route::post('/blog-cat-submit', [BlogsController::class,'storeCategory']);
     Route::post('/blog-cat-update', [BlogsController::class,'updateCategory']);
     Route::post('/update_blog_status', [BlogsController::class,'update_blog_status']);
+
+    // Expense Reports
+
+    Route::get('/day-book', [ExpenseController::class,'day_book']);
+    Route::post('/day-book', [ExpenseController::class,'day_book_sub']);
+    Route::get('/expense-reports', [ExpenseController::class,'expense_reports']);
+    Route::post('/category-wise-expense', [ExpenseController::class,'category_wise_expense']);
+    Route::post('/sub-category-wise-expense', [ExpenseController::class,'sub_category_wise_expense']);
+    Route::get('/print-all-expense', [ExpenseController::class,'print_all_expense']);
+    Route::post('/date-wise-expense', [ExpenseController::class,'date_wise_expense']);
+    Route::post('/cash-account-wise-expense', [ExpenseController::class,'cash_account_wise_expense']);
+
+
+
+    // Payments Report
+    Route::get('/payments-report', [PaymentsController::class,'payments_reports']);
+    Route::post('/date-wise-payment', [PaymentsController::class,'date_wise_payment']);
+    Route::post('/date-wise-recveive-payments', [ReceivedController::class,'date_wise_recveive_payments']);
+
+    // Ledger
+
+    Route::get('/reports-list', [AccountsController::class,'reports_list']);
+    Route::get('/ledger-reports', [AccountsController::class,'ledger_reports']);
+    Route::post('/print-cash-account-ledeger', [AccountsController::class,'print_cash_account_ledeger']);
+    Route::post('/date-wise-cash-account-ledeger', [AccountsController::class,'date_wise_cash_account_ledeger']);
+    Route::post('/print-agent-account-ledeger', [AccountsController::class,'print_agent_account_ledeger']);
+    Route::post('/date-wise-agent-account-ledeger', [AccountsController::class,'date_wise_agent_account_ledeger']);
+
     
 
 });

@@ -305,6 +305,50 @@
                             </div>
                         </li>
 
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#reportsNav" aria-expanded="false" aria-controls="reportsNav" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span class="badge bg-success float-end">4</span>
+                                <span> Reports </span>
+                            </a>
+                            <div class="collapse" id="reportsNav">
+                                <ul class="side-nav-second-level">
+                               
+                                    <!-- <li>
+                                        <a href="{{ URL::to('profit-report') }}" target="blank">Profit Report</a>
+                                    </li> -->
+                                    <!-- <li>
+                                        <a href="{{ URL::to('date-wise-profit-report') }}" target="blank">DateWise Profit Report</a>
+                                    </li> -->
+                               
+                                    <li>
+                                        <a href="{{ URL::to('day-book') }}">Day Book</a>
+                                    </li>
+                            
+                                    <li>
+                                        <a href="{{ URL::to('expense-reports') }}">Expanse report</a>
+                                    </li>
+                                
+                                    <li>
+                                        <a href="{{ URL::to('payments-report') }}">Payments & Recv Report</a>
+                                    </li>
+                               
+                                    <li>
+                                        <a href="{{ URL::to('ledger-reports') }}">Ledgers Reports</a>
+                                    </li>  
+                                
+                                    <!-- <li>
+                                        <a href="{{ URL::to('files-reports') }}">Files Reports</a>
+                                    </li> 
+                                   
+                                    <li>
+                                        <a href="{{ URL::to('local-porperty-reports') }}">Local Property Reports</a>
+                                    </li> 
+                                    -->
+                                </ul>
+                            </div>
+                        </li>
+
                         
                        
                     </ul>
