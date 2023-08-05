@@ -1,4 +1,10 @@
 
+
+<?php 
+    use App\Helpers\Helper;
+    use Carbon\Carbon;
+?>
+
 @extends('adminPanel/members/master')   
          @section('style')
             <!-- Quill css -->
@@ -38,65 +44,141 @@
                                                 </div>
                                             </div><!-- end col-->
                                         </div>
-                                        <form action="{{ URL::to('client_follow_up_sub') }}" method="post" enctype="multipart/form-data">
+                                       
+                                            <form action="{{ URL::to('client_follow_up_sub') }}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row mb-2">
-                                            <div class="col-sm-12">
-                                                <div class="mb-3">
-                                                    <label for="example-input-normal" class="form-label">Comment</label>
-                                                    <textarea name="reanson" class="form-control" id="" cols="30" rows="5"></textarea>
-                                                    @error('reanson')
-                                                                <p class="text-danger mt-2">{{ $message }}</p>
-                                                    @enderror
-                                                    <input type="text" hidden name="client_id" value="{{ $client_id }}">
-                                                    <input type="text" hidden name="follow_up_id" value="{{ $follow_up_id }}">
-                                                </div>
-                                            </div>
-
-                                            @foreach($allCategory as $cat_res)
-                                            <div class="col-sm-12">
-                                                <div class="mb-3">
-                                                    <hr>
-                                                    <h4>{{ $cat_res->follow_up_name }}</h4>
-                                                    
-                                                    <div class="row">
-                                                        @foreach($allSubCategory as $sub_cat_res)
-                                                            @if($cat_res->id == $sub_cat_res->category_id)
-                                                            <div class="col-sm-2">
-                                                                <div class="mb-3">
-                                                                        <div class="form-check form-radio-info mb-2">
-                                                                            <input type="radio" id="{{ $sub_cat_res->id }}{{ $cat_res->id }}" value="{{ $sub_cat_res->id }}" name="follow_up_item" class="form-check-input" checked>
-                                                                            <label class="form-check-label" for="{{ $sub_cat_res->id }}{{ $cat_res->id }}">{{ $sub_cat_res->follow_up_sub_category }}</label>
-                                                                        </div>
-                                                                    
-                                                                </div>
-                                                            </div>
+                                            <div class="col-md-7">
+                                            <table id="scroll-horizontal-datatable" class="table table-centered w-100 nowrap">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Follow Type</th>
+                                                        <th>Reason</th>
+                                                        <th>Comment</th>
+                                                        <th>Follow Times</th>
+                                                        <th>Follow By</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                  
+                                                @isset($client_follow_up)
+                                                        @foreach($client_follow_up as $client_res)
+                                                       
+                                                    <tr>
+                                                        <td>
+                                                            {{ $client_res->id }}
+                                                        </td>
+                                                       
+                                                        <td>
+                                                        <?php 
+                                                            if(isset($client_res->sub_category_id)){
+                                                                $subCategorydata = Helper::get_sub_category_name($client_res->sub_category_id);
+                                                                echo  $subCategorydata->categoryOf->follow_up_name ?? '';
+                                                                
+                                                            }
+                                                            
+                                                        ?>
+                                                        </td>
+                                                        <td>
+                                                            @if(isset($client_res->sub_category_id))
+                                                                {{ $subCategorydata->follow_up_sub_category; }}
                                                             @endif
-                                                        @endforeach
+                                                        </td>
+                                                        <td class="change_user">
+                                                            {{ $client_res->follow_up_message; }}
+
+                                                        </td>
+                                                        
+                                                        <td>
+                                                        <?php 
+                                                                    if(isset($client_res->created_at)){
+                                                                        $formattedDatetime = Carbon::parse($client_res->created_at)->format('d-m-Y h:i:A');
+                                                                        echo "Follow Up At: ".$formattedDatetime."<br>";
+                                                                    }
+                                                                        
+                                                                    if(isset($client_res->next_follow_up_time)){
+                                                                        $formattedDatetime = Carbon::parse($client_res->next_follow_up_time)->format('d-m-Y h:i:A');
+                                                                        echo "Follow Up Next: ".$formattedDatetime;
+                                                                    }
+                                                                    
+                                                                ?>
+                                                        </td>
+                                                        <td>
+                                                            {{ Helper::getAgentName($client_res->follow_up_by) }}
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                    
+                                                    @endforeach
+                                                @endisset
+
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                            <div class="col-md-5" style="border: 1px solid #d3cece;border-radius: 6px;}">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                    <div class="mb-3">
+                                                        <label for="example-input-normal" class="form-label">Comment</label>
+                                                        <textarea name="reanson" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                        @error('reanson')
+                                                                    <p class="text-danger mt-2">{{ $message }}</p>
+                                                        @enderror
+                                                        <input type="text" hidden name="client_id" value="{{ $client_id }}">
+                                                        <input type="text" hidden name="follow_up_id" value="{{ $follow_up_id }}">
                                                     </div>
                                                 </div>
-                                            </div>
-                                            
-                                            @endforeach
+
+                                                @foreach($allCategory as $cat_res)
+                                                <div class="col-sm-12">
+                                                    <div class="mb-3">
+                                                        <hr>
+                                                        <h4>{{ $cat_res->follow_up_name }}</h4>
+                                                        
+                                                        <div class="row">
+                                                            @foreach($allSubCategory as $sub_cat_res)
+                                                                @if($cat_res->id == $sub_cat_res->category_id)
+                                                                <div class="col-sm-2">
+                                                                    <div class="mb-3">
+                                                                            <div class="form-check form-radio-info mb-2">
+                                                                                <input type="radio" id="{{ $sub_cat_res->id }}{{ $cat_res->id }}" value="{{ $sub_cat_res->id }}" name="follow_up_item" class="form-check-input" checked>
+                                                                                <label class="form-check-label" for="{{ $sub_cat_res->id }}{{ $cat_res->id }}">{{ $sub_cat_res->follow_up_sub_category }}</label>
+                                                                            </div>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                @endforeach
 
 
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-                                                    <label for="example-input-normal" class="form-label">Next Follow Up</label>
-                                                    <input type="datetime-local" class="form-control" name="next_follow_up">
+                                                <div class="col-sm-6">
+                                                    <div class="mb-3">
+                                                        <label for="example-input-normal" class="form-label">Next Follow Up</label>
+                                                        <input type="datetime-local" class="form-control" name="next_follow_up">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                           
                                             
-                                           
-                                            <div class="col-sm-6">
-                                                <div class="mb-3">
-                                                     <button type="submit" class="btn btn-success mt-3" style="float:right;">Submit</button>
+                                                
+                                            
+                                                <div class="col-sm-6">
+                                                    <div class="mb-3">
+                                                        <button type="submit" class="btn btn-success mt-3" style="float:right;">Submit</button>
+                                                    </div>
+                                                </div>
                                                 </div>
                                             </div>
+                                            
                                             
                                         </div>
                                         </form>
+                                        
                                     </div> <!-- end card-body-->
                                 </div> <!-- end card-->
                             </div> <!-- end col -->

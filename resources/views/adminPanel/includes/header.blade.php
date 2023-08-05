@@ -179,6 +179,9 @@
                                     <li>
                                         <a href="{{ URL::to('sale-plot') }}">Sale Plot</a>
                                     </li>   
+                                    <li>
+                                        <a href="{{ URL::to('plot-owner-change') }}">Plot Owner Change</a>
+                                    </li>   
                                 </ul>
                             </div>
                         </li>

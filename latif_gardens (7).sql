@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2023 at 09:32 AM
+-- Generation Time: Aug 05, 2023 at 11:37 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -55,7 +55,7 @@ CREATE TABLE `agents` (
 INSERT INTO `agents` (`id`, `fname`, `lname`, `opening_bal`, `balance`, `email`, `password`, `picture`, `country`, `city`, `phone`, `address`, `display_on_web`, `user_id`, `status`, `client_assigns`, `created_at`, `updated_at`) VALUES
 (1, 'Khashif', 'Ali', 4000.00, 5000.00, 'kashif@gmail.com', '$2y$10$nLff.4k1e9J8rhmqvmmj6e3Fd0QGWzXpf8FWFR4JTmy6H5OSGEqE6', '1768896626127684.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:34:40', '2023-07-26 21:38:49'),
 (2, 'Aslam', 'Chohan', 5000.00, 5000.00, 'aslam@gmail.com', '$2y$10$lSsquNrpVjCTrkbPTZluCOzqlbm8Sl4.lcT2WuTlIrhPWtJz5oJVq', '1768896822548539.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Sheikhupura', '1', 1, 'active', 1, '2023-06-16 16:37:48', '2023-06-28 11:33:23'),
-(3, 'Muhammad', 'Ali', 20000.00, 20000.00, 'ali@gmail.com', '$2y$10$w0BNDulJZMvCBEndjQ4PL.zPxAMDJ/vo0i/S9Xpk9KwAZ/xm.1mtW', '1769976804314240.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Test Addresst', '1', 1, 'active', 0, '2023-06-28 19:43:38', '2023-06-28 19:43:38');
+(3, 'Muhammad', 'Ali', 20000.00, 100000.00, 'ali@gmail.com', '$2y$10$w0BNDulJZMvCBEndjQ4PL.zPxAMDJ/vo0i/S9Xpk9KwAZ/xm.1mtW', '1769976804314240.jpg', 'PAKISTAN', 'Sheikhupura', '0333-2323232', 'Test Addresst', '1', 1, 'active', 0, '2023-06-28 19:43:38', '2023-08-05 21:05:56');
 
 -- --------------------------------------------------------
 
@@ -73,6 +73,7 @@ CREATE TABLE `agent_ledegers` (
   `recevied_id` int(11) DEFAULT NULL,
   `file_id` int(11) DEFAULT NULL,
   `property_id` int(11) DEFAULT NULL,
+  `plot_sale_id` int(11) DEFAULT NULL,
   `agent_id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -83,9 +84,11 @@ CREATE TABLE `agent_ledegers` (
 -- Dumping data for table `agent_ledegers`
 --
 
-INSERT INTO `agent_ledegers` (`id`, `payment`, `received`, `commission`, `balance`, `payment_id`, `recevied_id`, `file_id`, `property_id`, `agent_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, '6000', NULL, NULL, '10000', NULL, 4, NULL, NULL, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
-(3, NULL, '5000', NULL, '5000', 2, NULL, NULL, NULL, 1, 1, '2023-07-26 21:38:49', '2023-07-26 21:38:49');
+INSERT INTO `agent_ledegers` (`id`, `payment`, `received`, `commission`, `balance`, `payment_id`, `recevied_id`, `file_id`, `property_id`, `plot_sale_id`, `agent_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, '6000', NULL, NULL, '10000', NULL, 4, NULL, NULL, NULL, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
+(3, NULL, '5000', NULL, '5000', 2, NULL, NULL, NULL, NULL, 1, 1, '2023-07-26 21:38:49', '2023-07-26 21:38:49'),
+(4, '160000.00', NULL, NULL, '180000', NULL, NULL, NULL, NULL, 7, 3, 1, '2023-08-05 20:59:44', '2023-08-05 20:59:44'),
+(5, NULL, '80000', NULL, '100000', 5, NULL, NULL, NULL, NULL, 3, 1, '2023-08-05 21:05:56', '2023-08-05 21:05:56');
 
 -- --------------------------------------------------------
 
@@ -198,7 +201,13 @@ INSERT INTO `cash_accountledgers` (`id`, `payment`, `received`, `balance`, `depo
 (10, NULL, '8000000', '6003500', NULL, NULL, 6, NULL, NULL, NULL, 1, 1, NULL, '2023-07-30 20:30:54', '2023-07-30 20:30:54'),
 (11, NULL, '3000000', '9003500', NULL, NULL, 7, NULL, NULL, NULL, 1, 1, NULL, '2023-07-30 20:36:24', '2023-07-30 20:36:24'),
 (12, NULL, '4000000', '13003500', NULL, NULL, 8, NULL, NULL, NULL, 1, 1, NULL, '2023-07-30 20:39:08', '2023-07-30 20:39:08'),
-(13, NULL, '7000000', '20003500', NULL, NULL, 9, NULL, NULL, NULL, 1, 1, NULL, '2023-08-01 07:18:20', '2023-08-01 07:18:20');
+(13, NULL, '7000000', '20003500', NULL, NULL, 9, NULL, NULL, NULL, 1, 1, NULL, '2023-08-01 07:18:20', '2023-08-01 07:18:20'),
+(14, '10000', NULL, '19993500', NULL, NULL, NULL, NULL, NULL, 2, 1, 1, NULL, '2023-08-02 06:39:27', '2023-08-02 06:39:27'),
+(15, NULL, '3000000', '22993500', NULL, NULL, 10, NULL, NULL, NULL, 1, 1, NULL, '2023-08-05 08:03:50', '2023-08-05 08:03:50'),
+(16, NULL, '2000000', '24993500', NULL, NULL, 11, NULL, NULL, NULL, 1, 1, NULL, '2023-08-05 11:38:12', '2023-08-05 11:38:12'),
+(17, '500000', NULL, '24493500', NULL, 4, NULL, NULL, NULL, NULL, 1, 1, NULL, '2023-08-05 11:45:12', '2023-08-05 11:45:12'),
+(18, '2500.00', NULL, '24491000', NULL, NULL, NULL, NULL, NULL, 3, 1, 1, NULL, '2023-08-05 11:48:25', '2023-08-05 11:48:25'),
+(19, '80000', NULL, '24411000', NULL, 5, NULL, NULL, NULL, NULL, 1, 1, NULL, '2023-08-05 21:05:57', '2023-08-05 21:05:57');
 
 -- --------------------------------------------------------
 
@@ -243,7 +252,7 @@ CREATE TABLE `cash_accounts_bals` (
 --
 
 INSERT INTO `cash_accounts_bals` (`id`, `balance`, `account_id`, `created_at`, `updated_at`) VALUES
-(1, 20003500.00, 1, '2023-06-23 07:09:10', '2023-08-01 07:18:20'),
+(1, 24411000.00, 1, '2023-06-23 07:09:10', '2023-08-05 21:05:57'),
 (2, 5000.00, 2, '2023-06-28 19:44:15', '2023-06-28 19:44:15');
 
 -- --------------------------------------------------------
@@ -657,6 +666,7 @@ CREATE TABLE `customerledgers` (
   `recevied_id` int(11) DEFAULT NULL,
   `plot_id` int(11) DEFAULT NULL,
   `plot_balance_id` int(11) DEFAULT NULL,
+  `plot_owner_change_id` int(11) DEFAULT NULL,
   `customer_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -667,16 +677,27 @@ CREATE TABLE `customerledgers` (
 -- Dumping data for table `customerledgers`
 --
 
-INSERT INTO `customerledgers` (`id`, `payment`, `received`, `balance`, `plot_balance`, `payment_id`, `recevied_id`, `plot_id`, `plot_balance_id`, `customer_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, NULL, 6000000.00, 6000000.00, 6000000.00, NULL, NULL, 1, 2, 1, 1, '2023-07-23 11:24:35', '2023-07-23 11:24:35'),
-(3, NULL, 7000000.00, 7000000.00, 7000000.00, NULL, NULL, 4, 3, 1, 1, '2023-07-25 05:45:20', '2023-07-25 05:45:20'),
-(4, 3000000.00, NULL, 3000000.00, 3000000.00, NULL, 4, 1, 2, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
-(5, NULL, 1000000.00, 4000000.00, 4000000.00, 2, NULL, 1, 2, 1, 1, '2023-07-26 21:38:49', '2023-07-26 21:38:49'),
-(6, NULL, 4000000.00, 8000000.00, 8000000.00, 3, NULL, 1, 2, 1, 1, '2023-07-30 20:27:33', '2023-07-30 20:27:33'),
-(7, 8000000.00, NULL, 0.00, 0.00, NULL, 6, 1, 2, 1, 1, '2023-07-30 20:30:54', '2023-07-30 20:30:54'),
-(8, 3000000.00, NULL, -3000000.00, -3000000.00, NULL, 7, 1, 3, 1, 1, '2023-07-30 20:36:24', '2023-07-30 20:36:24'),
-(9, 4000000.00, NULL, -7000000.00, -7000000.00, NULL, 8, 1, 3, 1, 1, '2023-07-30 20:39:08', '2023-07-30 20:39:08'),
-(10, 7000000.00, NULL, 0.00, 0.00, NULL, 9, 4, 3, 1, 1, '2023-08-01 07:18:20', '2023-08-01 07:18:20');
+INSERT INTO `customerledgers` (`id`, `payment`, `received`, `balance`, `plot_balance`, `payment_id`, `recevied_id`, `plot_id`, `plot_balance_id`, `plot_owner_change_id`, `customer_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, NULL, 6000000.00, 6000000.00, 6000000.00, NULL, NULL, 1, 2, NULL, 1, 1, '2023-07-23 11:24:35', '2023-07-23 11:24:35'),
+(3, NULL, 7000000.00, 7000000.00, 7000000.00, NULL, NULL, 4, 3, NULL, 1, 1, '2023-07-25 05:45:20', '2023-07-25 05:45:20'),
+(4, 3000000.00, NULL, 3000000.00, 3000000.00, NULL, 4, 1, 2, NULL, 1, 1, '2023-07-26 06:56:58', '2023-07-26 06:56:58'),
+(5, NULL, 1000000.00, 4000000.00, 4000000.00, 2, NULL, 1, 2, NULL, 1, 1, '2023-07-26 21:38:49', '2023-07-26 21:38:49'),
+(6, NULL, 4000000.00, 8000000.00, 8000000.00, 3, NULL, 1, 2, NULL, 1, 1, '2023-07-30 20:27:33', '2023-07-30 20:27:33'),
+(7, 8000000.00, NULL, 0.00, 0.00, NULL, 6, 1, 2, NULL, 1, 1, '2023-07-30 20:30:54', '2023-07-30 20:30:54'),
+(8, 3000000.00, NULL, -3000000.00, -3000000.00, NULL, 7, 1, 3, NULL, 1, 1, '2023-07-30 20:36:24', '2023-07-30 20:36:24'),
+(9, 4000000.00, NULL, -7000000.00, -7000000.00, NULL, 8, 1, 3, NULL, 1, 1, '2023-07-30 20:39:08', '2023-07-30 20:39:08'),
+(10, 7000000.00, NULL, 0.00, 0.00, NULL, 9, 4, 3, NULL, 1, 1, '2023-08-01 07:18:20', '2023-08-01 07:18:20'),
+(11, NULL, 5500000.00, 5500000.00, 5500000.00, NULL, NULL, 3, 4, NULL, 2, 1, '2023-08-05 08:02:31', '2023-08-05 08:02:31'),
+(12, 3000000.00, NULL, 2500000.00, 2500000.00, NULL, 10, 3, 4, NULL, 2, 1, '2023-08-05 08:03:50', '2023-08-05 08:03:50'),
+(13, NULL, 3500000.00, 3500000.00, 3500000.00, NULL, NULL, 5, 5, NULL, 1, 1, '2023-08-05 11:27:53', '2023-08-05 11:27:53'),
+(14, NULL, 3500000.00, 3500000.00, 3500000.00, NULL, NULL, 5, 6, NULL, 2, 1, '2023-08-05 11:36:01', '2023-08-05 11:36:01'),
+(15, 2000000.00, NULL, 1500000.00, 1500000.00, NULL, 11, 5, 6, NULL, 2, 1, '2023-08-05 11:38:12', '2023-08-05 11:38:12'),
+(16, NULL, 500000.00, 2000000.00, 2000000.00, 4, NULL, 5, 6, NULL, 2, 1, '2023-08-05 11:45:12', '2023-08-05 11:45:12'),
+(20, NULL, 2000000.00, 2000000.00, 2000000.00, NULL, NULL, 5, 10, 4, 1, 1, '2023-08-05 19:33:55', '2023-08-05 19:33:55'),
+(21, NULL, -7000000.00, -7000000.00, -7000000.00, NULL, NULL, 1, 11, 5, 1, 1, '2023-08-05 19:47:28', '2023-08-05 19:47:28'),
+(22, NULL, -7000000.00, -7000000.00, -7000000.00, NULL, NULL, 1, 12, 6, 1, 1, '2023-08-05 19:48:03', '2023-08-05 19:48:03'),
+(23, NULL, 2000000.00, 2000000.00, 2000000.00, NULL, NULL, 5, 13, 7, 2, 1, '2023-08-05 19:49:13', '2023-08-05 19:49:13'),
+(24, NULL, 4000000.00, 4000000.00, 4000000.00, NULL, NULL, 7, 14, NULL, 1, 1, '2023-08-05 20:59:44', '2023-08-05 20:59:44');
 
 -- --------------------------------------------------------
 
@@ -720,6 +741,7 @@ INSERT INTO `customers` (`id`, `balance`, `custfname`, `custlname`, `email`, `CN
 CREATE TABLE `customer_plots` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `plot_id` int(11) NOT NULL,
+  `plot_owner_change_id` int(11) DEFAULT NULL,
   `total_plot_price` double(15,2) NOT NULL,
   `balance` double(15,2) NOT NULL,
   `plot_owner` tinyint(1) NOT NULL DEFAULT 1,
@@ -735,9 +757,16 @@ CREATE TABLE `customer_plots` (
 -- Dumping data for table `customer_plots`
 --
 
-INSERT INTO `customer_plots` (`id`, `plot_id`, `total_plot_price`, `balance`, `plot_owner`, `customer_id`, `plot_sale_id`, `plot_re_sale_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, 1, 6000000.00, -7000000.00, 1, 1, 2, NULL, 1, '2023-07-23 11:24:35', '2023-07-30 20:39:08'),
-(3, 4, 7000000.00, 0.00, 1, 1, 3, NULL, 1, '2023-07-25 05:45:20', '2023-08-01 07:18:20');
+INSERT INTO `customer_plots` (`id`, `plot_id`, `plot_owner_change_id`, `total_plot_price`, `balance`, `plot_owner`, `customer_id`, `plot_sale_id`, `plot_re_sale_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, 1, 5, 6000000.00, 0.00, 0, 1, 2, NULL, 1, '2023-07-23 11:24:35', '2023-08-05 19:47:28'),
+(3, 4, NULL, 7000000.00, 0.00, 1, 1, 3, NULL, 1, '2023-07-25 05:45:20', '2023-08-01 07:18:20'),
+(4, 3, NULL, 5500000.00, 2500000.00, 1, 2, 4, NULL, 1, '2023-08-05 08:02:31', '2023-08-05 08:03:50'),
+(6, 5, 4, 3500000.00, 0.00, 0, 2, 6, NULL, 1, '2023-08-05 11:36:01', '2023-08-05 19:33:55'),
+(10, 5, 7, 3500000.00, 0.00, 0, 1, NULL, NULL, 1, '2023-08-05 19:33:55', '2023-08-05 19:49:13'),
+(11, 1, 6, 6000000.00, 0.00, 0, 1, NULL, NULL, 1, '2023-08-05 19:47:28', '2023-08-05 19:48:03'),
+(12, 1, 6, 6000000.00, -7000000.00, 1, 1, NULL, NULL, 1, '2023-08-05 19:48:03', '2023-08-05 19:48:03'),
+(13, 5, 7, 3500000.00, 2000000.00, 1, 2, NULL, NULL, 1, '2023-08-05 19:49:13', '2023-08-05 19:49:13'),
+(14, 7, NULL, 4000000.00, 4000000.00, 1, 1, 7, NULL, 1, '2023-08-05 20:59:44', '2023-08-05 20:59:44');
 
 -- --------------------------------------------------------
 
@@ -763,7 +792,9 @@ CREATE TABLE `expenses` (
 --
 
 INSERT INTO `expenses` (`id`, `exp_name`, `total_amount`, `date`, `account_id`, `category_id`, `sub_category_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'expe', '3000', '2023-06-23', 1, 1, 1, 1, '2023-06-23 07:13:10', '2023-06-23 07:13:10');
+(1, 'expe', '3000', '2023-06-23', 1, 1, 1, 1, '2023-06-23 07:13:10', '2023-06-23 07:13:10'),
+(2, 'New Expense 4', '10000', '2023-08-02', 1, 1, 1, 1, '2023-08-02 06:39:27', '2023-08-02 06:39:27'),
+(3, 'New Expense 4', '2500.00', '2023-08-05', 1, 1, 1, 1, '2023-08-05 11:48:25', '2023-08-05 11:48:25');
 
 -- --------------------------------------------------------
 
@@ -971,7 +1002,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2022_10_28_051525_create_customers_table', 9),
 (23, '2022_10_28_051547_create_customer_balances_table', 9),
 (24, '2022_11_21_082027_create_customerledgers_table', 9),
-(25, '2023_07_23_125301_create_plot_sales_table', 10);
+(25, '2023_07_23_125301_create_plot_sales_table', 10),
+(26, '2023_08_05_174106_create_plot_owner_changes_table', 11);
 
 -- --------------------------------------------------------
 
@@ -1015,7 +1047,9 @@ CREATE TABLE `payments` (
 
 INSERT INTO `payments` (`id`, `date`, `prev_balance`, `updated_balance`, `total_payments`, `Criteria`, `Content`, `Content_Ids`, `plots_balance_ids`, `Amount`, `remarks`, `payment_from`, `user_id`, `created_at`, `updated_at`) VALUES
 (2, '2023-07-27', '3008500', '2003500', '1005000', '[\"Agent\",\"Customer\"]', '[\"Khashif Ali\",\"Muhammad Usama Asghar up\"]', '[\"1\",\"1\"]', '[\"null\",\"2\"]', '[\"5000\",\"1000000\"]', '[\"Agent Payment\",\"Customer Plot Payment Return\"]', 1, 1, '2023-07-26 21:38:49', '2023-07-26 21:38:49'),
-(3, '2023-07-31', '2003500', '-1996500', '4000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"2\"]', '[\"4000000\"]', '[\"Sale Complete\"]', 1, 1, '2023-07-30 20:27:33', '2023-07-30 20:27:33');
+(3, '2023-07-31', '2003500', '-1996500', '4000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"2\"]', '[\"4000000\"]', '[\"Sale Complete\"]', 1, 1, '2023-07-30 20:27:33', '2023-07-30 20:27:33'),
+(4, '2023-08-05', '24993500', '24493500', '500000', '[\"Customer\"]', '[\"Muhammad Ali\"]', '[\"2\"]', '[\"6\"]', '[\"500000\"]', '[\"Test Remarks\"]', 1, 1, '2023-08-05 11:45:12', '2023-08-05 11:45:12'),
+(5, '2023-08-06', '24491000', '24411000', '80000', '[\"Agent\"]', '[\"Muhammad Ali\"]', '[\"3\"]', '[\"null\"]', '[\"80000\"]', '[\"Test Remarks\"]', 1, 1, '2023-08-05 21:05:56', '2023-08-05 21:05:56');
 
 -- --------------------------------------------------------
 
@@ -1064,8 +1098,38 @@ CREATE TABLE `plots` (
 
 INSERT INTO `plots` (`id`, `plot_no`, `location_id`, `society_id`, `block_id`, `marala_type`, `state_type`, `plot_cost_price`, `plot_sale_price`, `status`, `description`, `created_at`, `updated_at`) VALUES
 (1, 'A1', 1, 1, 1, 1, 'Residentail', 4000000.00, 5000000.00, 'Sale Complete', '<p>This is Residentail</p>', NULL, '2023-07-30 20:30:54'),
-(3, 'A2', 1, 1, 1, 2, 'Residentail', 5000000.00, 6000000.00, 'Not Sale', '<p>This is Residentail</p>', NULL, NULL),
-(4, 'B1', 1, 1, 2, 2, 'Commerical', 5000000.00, 6000000.00, 'Sale Complete', NULL, NULL, '2023-08-01 07:18:20');
+(3, 'A2', 1, 1, 1, 2, 'Residentail', 5000000.00, 6000000.00, 'Sale Progress', '<p>This is Residentail</p>', NULL, '2023-08-05 08:02:31'),
+(4, 'B1', 1, 1, 2, 2, 'Commerical', 5000000.00, 6000000.00, 'Sale Complete', NULL, NULL, '2023-08-01 07:18:20'),
+(5, 'B3', 1, 1, 2, 1, 'Commerical', 3000000.00, 4000000.00, 'Sale Progress', '<p>test</p>', NULL, '2023-08-05 11:36:01'),
+(7, 'B4', 1, 1, 2, 1, 'Residentail', 3000000.00, 4000000.00, 'Sale Progress', NULL, NULL, '2023-08-05 20:59:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plot_owner_changes`
+--
+
+CREATE TABLE `plot_owner_changes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `plot_id` int(11) NOT NULL,
+  `prev_owner_id` int(11) NOT NULL,
+  `new_owner_id` int(11) NOT NULL,
+  `plot_balance_id` int(11) NOT NULL,
+  `plot_sale_price` double(15,2) NOT NULL,
+  `plot_balance` double(15,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `plot_owner_changes`
+--
+
+INSERT INTO `plot_owner_changes` (`id`, `plot_id`, `prev_owner_id`, `new_owner_id`, `plot_balance_id`, `plot_sale_price`, `plot_balance`, `created_at`, `updated_at`) VALUES
+(4, 5, 2, 1, 6, 3500000.00, 2000000.00, '2023-08-05 19:33:55', '2023-08-05 19:33:55'),
+(5, 1, 1, 1, 2, 6000000.00, -7000000.00, '2023-08-05 19:47:28', '2023-08-05 19:47:28'),
+(6, 1, 1, 1, 11, 6000000.00, -7000000.00, '2023-08-05 19:48:03', '2023-08-05 19:48:03'),
+(7, 5, 1, 2, 10, 3500000.00, 2000000.00, '2023-08-05 19:49:13', '2023-08-05 19:49:13');
 
 -- --------------------------------------------------------
 
@@ -1083,6 +1147,9 @@ CREATE TABLE `plot_sales` (
   `plot_cost_price` double(15,2) NOT NULL,
   `plot_demand` double(15,2) NOT NULL,
   `plot_sale_price` double(15,2) NOT NULL,
+  `agent_id` int(11) DEFAULT NULL,
+  `agent_commison_perc` float DEFAULT NULL,
+  `agent_commison_amount` float DEFAULT NULL,
   `at_booking_perc` double(15,2) NOT NULL,
   `complete_in_years` int(11) NOT NULL,
   `sixth_month_inst` double(15,2) NOT NULL,
@@ -1099,10 +1166,13 @@ CREATE TABLE `plot_sales` (
 -- Dumping data for table `plot_sales`
 --
 
-INSERT INTO `plot_sales` (`id`, `customer_id`, `location_id`, `society_id`, `block_id`, `plot_id`, `plot_cost_price`, `plot_demand`, `plot_sale_price`, `at_booking_perc`, `complete_in_years`, `sixth_month_inst`, `at_booking_price`, `no_of_6_month_inst`, `no_of_monthly_inst`, `monthly_inst_price`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 1, 1, 4000000.00, 5000000.00, 6000000.00, 30.00, 3, 400000.00, 1800000.00, 6, 30, 60000.00, 1, '2023-07-23 11:19:52', '2023-07-23 11:19:52'),
-(2, 1, 1, 1, 1, 1, 4000000.00, 5000000.00, 6000000.00, 30.00, 3, 300000.00, 1800000.00, 6, 30, 80000.00, 1, '2023-07-23 11:24:35', '2023-07-23 11:24:35'),
-(3, 1, 1, 1, 2, 4, 5000000.00, 6000000.00, 7000000.00, 30.00, 4, 600000.00, 2100000.00, 8, 40, 2500.00, 1, '2023-07-25 05:45:19', '2023-07-25 05:45:19');
+INSERT INTO `plot_sales` (`id`, `customer_id`, `location_id`, `society_id`, `block_id`, `plot_id`, `plot_cost_price`, `plot_demand`, `plot_sale_price`, `agent_id`, `agent_commison_perc`, `agent_commison_amount`, `at_booking_perc`, `complete_in_years`, `sixth_month_inst`, `at_booking_price`, `no_of_6_month_inst`, `no_of_monthly_inst`, `monthly_inst_price`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 1, 1, 4000000.00, 5000000.00, 6000000.00, NULL, NULL, NULL, 30.00, 3, 400000.00, 1800000.00, 6, 30, 60000.00, 1, '2023-07-23 11:19:52', '2023-07-23 11:19:52'),
+(2, 1, 1, 1, 1, 1, 4000000.00, 5000000.00, 6000000.00, NULL, NULL, NULL, 30.00, 3, 300000.00, 1800000.00, 6, 30, 80000.00, 1, '2023-07-23 11:24:35', '2023-07-23 11:24:35'),
+(3, 1, 1, 1, 2, 4, 5000000.00, 6000000.00, 7000000.00, NULL, NULL, NULL, 30.00, 4, 600000.00, 2100000.00, 8, 40, 2500.00, 1, '2023-07-25 05:45:19', '2023-07-25 05:45:19'),
+(4, 2, 1, 1, 1, 3, 5000000.00, 6000000.00, 5500000.00, NULL, NULL, NULL, 20.00, 2, 200000.00, 1100000.00, 4, 20, 180000.00, 1, '2023-08-05 08:02:31', '2023-08-05 08:02:31'),
+(6, 2, 1, 1, 2, 5, 3000000.00, 4000000.00, 3500000.00, NULL, NULL, NULL, 30.00, 3, 200000.00, 1050000.00, 6, 30, 41666.67, 1, '2023-08-05 11:36:01', '2023-08-05 11:36:01'),
+(7, 1, 1, 1, 2, 7, 3000000.00, 4000000.00, 4000000.00, 3, 4, 160000, 20.00, 2, 200000.00, 800000.00, 4, 20, 120000.00, 1, '2023-08-05 20:59:44', '2023-08-05 20:59:44');
 
 -- --------------------------------------------------------
 
@@ -1137,7 +1207,9 @@ INSERT INTO `recevied_payments` (`id`, `date`, `prev_balance`, `updated_balance`
 (6, '2023-07-31', '-1996500', '6003500', '8000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"2\"]', '[\"8000000\"]', '[\"Sale Completed\"]', 1, 1, '2023-07-30 20:30:54', '2023-07-30 20:30:54'),
 (7, '2023-07-31', '6003500', '9003500', '3000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"3\"]', '[\"3000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-07-30 20:36:24', '2023-07-30 20:36:24'),
 (8, '2023-07-31', '9003500', '13003500', '4000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"3\"]', '[\"4000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-07-30 20:39:08', '2023-07-30 20:39:08'),
-(9, '2023-08-01', '13003500', '20003500', '7000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"3\"]', '[\"7000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-08-01 07:18:19', '2023-08-01 07:18:19');
+(9, '2023-08-01', '13003500', '20003500', '7000000', '[\"Customer\"]', '[\"Muhammad Usama Asghar up\"]', '[\"1\"]', '[\"3\"]', '[\"7000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-08-01 07:18:19', '2023-08-01 07:18:19'),
+(10, '2023-08-05', '19993500', '22993500', '3000000', '[\"Customer\"]', '[\"Muhammad Ali\"]', '[\"2\"]', '[\"4\"]', '[\"3000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-08-05 08:03:50', '2023-08-05 08:03:50'),
+(11, '2023-08-05', '22993500', '24993500', '2000000', '[\"Customer\"]', '[\"Muhammad Ali\"]', '[\"2\"]', '[\"6\"]', '[\"2000000\"]', '[\"Test Remarks\"]', 1, 1, '2023-08-05 11:38:12', '2023-08-05 11:38:12');
 
 -- --------------------------------------------------------
 
@@ -1393,6 +1465,12 @@ ALTER TABLE `plots`
   ADD UNIQUE KEY `plots_plot_no_unique` (`plot_no`);
 
 --
+-- Indexes for table `plot_owner_changes`
+--
+ALTER TABLE `plot_owner_changes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `plot_sales`
 --
 ALTER TABLE `plot_sales`
@@ -1433,7 +1511,7 @@ ALTER TABLE `agents`
 -- AUTO_INCREMENT for table `agent_ledegers`
 --
 ALTER TABLE `agent_ledegers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `blocks`
@@ -1457,7 +1535,7 @@ ALTER TABLE `blog_categories`
 -- AUTO_INCREMENT for table `cash_accountledgers`
 --
 ALTER TABLE `cash_accountledgers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `cash_accounts`
@@ -1505,7 +1583,7 @@ ALTER TABLE `curren_follow_ups`
 -- AUTO_INCREMENT for table `customerledgers`
 --
 ALTER TABLE `customerledgers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -1517,13 +1595,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `customer_plots`
 --
 ALTER TABLE `customer_plots`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `expense_categories`
@@ -1577,13 +1655,13 @@ ALTER TABLE `maralas`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1595,19 +1673,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `plots`
 --
 ALTER TABLE `plots`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `plot_owner_changes`
+--
+ALTER TABLE `plot_owner_changes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `plot_sales`
 --
 ALTER TABLE `plot_sales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `recevied_payments`
 --
 ALTER TABLE `recevied_payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `societies`

@@ -174,12 +174,16 @@ Route::middleware('auth:web')->group(function () {
 
     // Plots
     Route::get('/plots-list', [PlotController::class,'index']);
+    Route::get('/plots_customer/{id}', [PlotController::class,'plots_customer_list']);
     Route::get('/add-plot', [PlotController::class,'create']);
     Route::post('/plots-submit', [PlotController::class,'store']);
 
     Route::get('/sale-plot', [PlotController::class,'sale_plot']);
+    Route::get('/plot-owner-change', [PlotController::class,'plot_owner_change']);
     Route::post('/fetch_plots_wi_block', [PlotController::class,'fetch_plots_wi_block']);
     Route::post('/plot-sale-submit', [PlotController::class,'plot_sale_submit']);
+    Route::post('/fetch_plots_balance_data', [PlotController::class,'fetch_plots_balance_data']);
+    Route::post('/plot-owner-change-submit', [PlotController::class,'plot_owner_change_submit']);
     
     
     // Customers

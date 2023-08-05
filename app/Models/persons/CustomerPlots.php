@@ -10,7 +10,7 @@ class CustomerPlots extends Model
     use HasFactory;
 
     protected $table = 'customer_plots';
-    protected $filables = ['balance','plot_owner'];
+    protected $fillable = ['balance','plot_owner','plot_owner_change_id','plot_re_sale_id'];
 
     public function customer()
     {

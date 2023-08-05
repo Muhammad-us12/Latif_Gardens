@@ -28,8 +28,8 @@
                     <th style="border:1px solid black;">Particular</th>
                     <th style="border:1px solid black;">Plot No#</th>
                     <th style="border:1px solid black;">Remarks</th>
-                    <th style="border:1px solid black;">Credit</th>
                     <th style="border:1px solid black;">Debit</th>
+                    <th style="border:1px solid black;">Credit</th>
                 </tr>
 
             </thead>

@@ -197,6 +197,7 @@
                                                                         
                                                                         @endforeach
                                                                     @endisset
+                                                                    
 
                                                                     </tbody>
                                                                 </table>

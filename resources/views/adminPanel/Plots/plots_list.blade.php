@@ -84,6 +84,7 @@
                                                         <th>Sale Price</th>
                                                         <th>Balance</th>
                                                         <th>State Type</th>
+                                                        <th>Action</th>
                                                         
                                                     </tr>
                                                 </thead>
@@ -160,6 +161,15 @@
                                                             
                                                             <td>
                                                                 {{ $plot_res->state_type }}
+                                                            </td>
+                                                            <td>
+                                                                <?php 
+                                                                    if($plot_res->status != 'Not Sale'){
+                                                                ?>
+                                                                <a href="{{ URL::to('plots_customer/'.$plot_res->id.'') }}" class="btn btn-info"><i class="mdi mdi-eye"></i></a>
+                                                                <?php 
+                                                                    }
+                                                                ?>
                                                             </td>
                                                             
                                                         </tr>

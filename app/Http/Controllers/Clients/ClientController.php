@@ -82,7 +82,8 @@ class ClientController extends Controller
         $allCategory = FollowUpCategory::all();
         $allSubCategory = FollowUpSubCategory::all();
         $follow_up_id = $id;
-        return view('adminPanel.members.Clients.client_follow_up',compact('follow_up_id','client_id','allCategory','allSubCategory'));
+        $client_follow_up = ClientsFollowUp::where('client_id',$client_id)->orderBy('id','desc')->get();
+        return view('adminPanel.members.Clients.client_follow_up',compact('follow_up_id','client_id','allCategory','allSubCategory','client_follow_up'));
     }
 
     public function clients_follow_up_list($id){

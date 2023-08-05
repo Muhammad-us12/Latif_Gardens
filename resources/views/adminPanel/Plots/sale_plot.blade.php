@@ -171,6 +171,39 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="col-sm-4">
+                                                    <div class="mb-3">
+                                                        <label for="example-input-normal" class="form-label">Select Customer</label>
+                                                        <select class="form-control select2" name="agent_id" data-toggle="select2">
+                                                                <option value="-1">Select Agent</option>
+                                                                @isset($agents_data)
+                                                                    @foreach($agents_data as $agnet_res)
+                                                                    <option value="{{ $agnet_res->id }}">{{ $agnet_res->id }} \ {{ $agnet_res->fname." ".$cust_res->lname }}</option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            
+                                                        </select>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Commission %</label>
+                                                        <input type="number" class="form-control agent_commission_calc" id="commission_perc" name="commission_perc" value="{{ old('commission_perc') }}" >
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Commission Amount</label>
+                                                        <input type="number" class="form-control agent_commission_calc" id="commission_amount" name="commission_amount" value="{{ old('commission_amount') }}" >
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+
                                                 <div class="col-md-12">
                                                     <hr>
                                                     <h5>Make Payments Installment</h5>
@@ -483,6 +516,7 @@
 
                     var afterBigInstallPrice = (sale_price - at_booking_price) - totalBigInstalPrice;
                     var monthlyInstallPrice = afterBigInstallPrice / RemaningMonthlyInstall;
+                    monthlyInstallPrice = monthlyInstallPrice.toFixed(2);
 
                     $('#at_booking_price').val(at_booking_price);
                     $('#no_of_6_month_inst').val(totalBigInstall);
@@ -490,6 +524,20 @@
                     $('#monthly_inst_price').val(monthlyInstallPrice);
 
                     console.log(sale_price);
+                }
+
+                $('.agent_commission_calc').on('keyup change',function(){
+                    calculateAgentCommission();
+                })
+
+                calculateAgentCommission = () => {
+                    var sale_price = $('#plot_sale_price').val();
+                    var commission_perc = $('#commission_perc').val();
+
+                    var commission_amount = (sale_price * commission_perc) / 100;
+                    commission_amount = commission_amount.toFixed(2);
+                    $('#commission_amount').val(commission_amount);
+                    
                 }
 
                 $(document).ready(function() {
